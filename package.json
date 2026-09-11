@@ -1,0 +1,20 @@
+{
+  "name": "cbt-smk-pgri11",
+  "version": "1.0.0",
+  "description": "Aplikasi Ujian Berbasis Web (Computer Based Test) khusus mata pelajaran **Sejarah Indonesia**, dirancang dengan antarmuka modern, fokus, bebas distraksi, serta ramah pengguna bagi siswa dan guru.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4"
+  }
+}
