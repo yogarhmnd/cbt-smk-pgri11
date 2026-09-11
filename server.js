@@ -80,7 +80,7 @@ app.get('/api/health', async (req, res) => {
     const [rows] = await dbPool.query('SELECT 1 as connected');
     res.json({ status: 'ok', database: 'connected', time: new Date().toISOString() });
   } catch (err) {
-    res.status(500).json({ status: 'error', database: 'disconnected', error: err.message });
+    res.json({ status: 'offline', database: 'disconnected', message: 'Running in LocalStorage fallback mode', error: err.message });
   }
 });
 
