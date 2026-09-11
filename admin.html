@@ -9,6 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Firebase Compatibility SDK & Firestore Cloud DB -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
   <style>
     body { font-family: 'Inter', sans-serif; }
   </style>
@@ -32,6 +38,12 @@
 
       <!-- Action Links & Profile -->
       <div class="flex items-center space-x-3">
+        <!-- Cloud DB Status Badge -->
+        <div id="db-status-badge" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+          <span>Database Siap</span>
+        </div>
+
         <button onclick="forceRegenerateToken()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition">
           <i data-lucide="key-round" class="w-4 h-4"></i>
           <span>Rilis Token Baru</span>
@@ -217,10 +229,30 @@
       { nisn: "0069384719", nama: "Putri Anggraini", kelas: "XII AKL 1", benar: 37, salah: 3, nilai: "92.5", pelanggaran: 0, waktuSubmit: "10:12:05" }
     ];
 
-    // Gabungkan dengan submission terbaru dari localStorage jika ada
+    // Gabungkan dengan submission terbaru dari localStorage dan Firebase
     function getCombinedStudents() {
       const stored = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
-      return [...stored, ...defaultStudents];
+      const cloudStored = JSON.parse(localStorage.getItem('cbt_exam_results') || '[]');
+      const seen = new Set();
+      const unique = [];
+
+      [...stored, ...cloudStored].forEach(s => {
+        const key = `${s.nisn}_${s.waktuSubmit}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          unique.push(s);
+        }
+      });
+
+      defaultStudents.forEach(s => {
+        const key = `${s.nisn}_${s.waktuSubmit}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          unique.push(s);
+        }
+      });
+
+      return unique;
     }
 
     function renderTable(data) {
@@ -313,6 +345,18 @@
     let tokenExpirySeconds = 300;
     let tokenInterval = null;
 
+    function updateDbBadge() {
+      const badge = document.getElementById("db-status-badge");
+      if (!badge) return;
+      if (window.CBT_DB && window.CBT_DB.isReady()) {
+        badge.className = "hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200";
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>🔥 Firebase Cloud Aktif</span>`;
+      } else {
+        badge.className = "hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200";
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-500"></span><span>💾 Local Storage Mode</span>`;
+      }
+    }
+
     function generateNewToken() {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
       let token = "SEJ-";
@@ -323,6 +367,11 @@
       tokenExpirySeconds = 300;
       localStorage.setItem('cbt_active_token', currentToken);
       localStorage.setItem('cbt_token_generated_at', Date.now().toString());
+
+      // Sinkronkan ke Firebase jika aktif
+      if (window.CBT_DB) {
+        window.CBT_DB.setToken(currentToken, 5);
+      }
     }
 
     function showTokenPopup() {
@@ -411,8 +460,16 @@
     }
 
     window.onload = () => {
+      updateDbBadge();
       renderTable(getCombinedStudents());
       startTokenTimer();
+
+      if (window.CBT_DB) {
+        window.CBT_DB.listenSubmissions((cloudList) => {
+          renderTable(getCombinedStudents());
+          updateDbBadge();
+        });
+      }
     };
   </script>
 

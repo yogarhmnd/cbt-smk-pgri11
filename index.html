@@ -19,6 +19,11 @@
   <!-- AI Cognitive & Real API Engine Module -->
   <script src="ai-engine.js"></script>
 
+  <!-- Firebase Compatibility SDK & Firestore Cloud DB -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
   <!-- Tailwind Config Palette Ruangguru Style -->
   <script>
     tailwind.config = {
@@ -5486,6 +5491,11 @@
       existingSubmissions.unshift(studentSubmission);
       localStorage.setItem('cbt_all_submissions', JSON.stringify(existingSubmissions));
 
+      // Kirim hasil ujian ke Firebase Cloud Firestore (jika aktif)
+      if (window.CBT_DB) {
+        window.CBT_DB.saveSubmission(studentSubmission);
+      }
+
       document.getElementById("final-score-display").innerText = finalScore;
       document.getElementById("count-correct").innerText = correctCount;
       document.getElementById("count-wrong").innerText = wrongCount;
@@ -5610,10 +5620,11 @@
 
     function getCombinedStudents() {
       const stored = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
+      const cloudStored = JSON.parse(localStorage.getItem('cbt_exam_results') || '[]');
       const seen = new Set();
       const unique = [];
       
-      stored.forEach(s => {
+      [...stored, ...cloudStored].forEach(s => {
         const key = `${s.nisn}_${s.waktuSubmit}`;
         if (!seen.has(key)) {
           seen.add(key);
@@ -5844,6 +5855,16 @@
     window.onload = () => {
       startTokenTimer();
       checkAuthHeader();
+
+      // Sinkronisasi realtime jika Firebase aktif
+      if (window.CBT_DB) {
+        window.CBT_DB.listenSubmissions(() => {
+          if (currentAuthRole === 'teacher') {
+            renderAdminTable(getCombinedStudents());
+          }
+        });
+      }
+
       if (currentAuthRole === 'teacher') {
         switchView('view-admin');
         renderAdminBabControlGrid();
