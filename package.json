@@ -2,7 +2,5 @@
   "name": "cbt-smk-pgri11",
   "version": "1.0.0",
   "description": "Aplikasi CBT Sejarah Indonesia SMK PGRI 11 Ciledug",
-  "scripts": {
-    "build": "echo Static site ready"
-  }
+  "scripts": {}
 }
