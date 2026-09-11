@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
@@ -12,8 +13,40 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static frontend files
+// Helper to resolve files in local & Vercel serverless Lambda environments
+const getRootFile = (fileName) => {
+  const candidates = [
+    path.join(__dirname, fileName),
+    path.join(__dirname, '..', fileName),
+    path.join(process.cwd(), fileName)
+  ];
+  for (const p of candidates) {
+    if (fs.existsSync(p)) return p;
+  }
+  return path.join(process.cwd(), fileName);
+};
+
+// Serve static assets and views
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/assets', express.static(path.join(process.cwd(), 'assets')));
 app.use(express.static(path.join(__dirname)));
+app.use(express.static(process.cwd()));
+
+app.get('/', (req, res) => {
+  res.sendFile(getRootFile('index.html'));
+});
+
+app.get('/admin', (req, res) => {
+  res.sendFile(getRootFile('admin.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(getRootFile('login.html'));
+});
+
+app.get('/ai-engine.js', (req, res) => {
+  res.sendFile(getRootFile('ai-engine.js'));
+});
 
 // MySQL Database Connection Pool
 const dbPool = mysql.createPool({
