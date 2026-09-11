@@ -140,13 +140,6 @@
           <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-950"></i>
           <span>PANEL GURU</span>
         </div>
-
-        <!-- BUBBLE STATUS DATABASE LOCALHOST -->
-        <div id="topbar-db-badge" class="hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1 bg-emerald-500/20 text-emerald-100 text-[10.5px] font-bold rounded-full border border-emerald-400/30 backdrop-blur-md shadow-2xs">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <i data-lucide="database" class="w-3 h-3 text-emerald-300"></i>
-          <span id="topbar-db-text">MySQL Localhost</span>
-        </div>
       </div>
 
       <!-- Sisi Tengah / Kanan: Menu Navigasi Siswa ATAU Guru -->
@@ -2245,52 +2238,6 @@
 
   <!-- ================= JAVASCRIPT MASTER LOGIC ================= -->
   <script>
-    // ==========================================
-    // 0. API INTEGRATION CLIENT (DUAL-MODE HYBRID)
-    // ==========================================
-    const API_BASE_URL = (() => {
-      if (window.location.protocol === 'file:') return 'http://localhost:3000/api';
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return window.location.port === '3000' ? '/api' : 'http://localhost:3000/api';
-      }
-      return '/api';
-    })();
-
-    let isMySQLConnected = false;
-
-    async function checkMySQLConnection() {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2000);
-        const res = await fetch(`${API_BASE_URL}/health`, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        if (res.ok) {
-          const data = await res.json();
-          isMySQLConnected = (data.database === 'connected');
-        } else {
-          isMySQLConnected = false;
-        }
-      } catch (e) {
-        isMySQLConnected = false;
-      }
-      updateDatabaseBadgeUI();
-      return isMySQLConnected;
-    }
-
-    function updateDatabaseBadgeUI() {
-      const badge = document.getElementById('topbar-db-badge');
-      const text = document.getElementById('topbar-db-text');
-      if (!badge || !text) return;
-
-      if (isMySQLConnected) {
-        badge.className = "hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1 bg-emerald-500/20 text-emerald-100 text-[10.5px] font-bold rounded-full border border-emerald-400/30 backdrop-blur-md shadow-2xs";
-        text.innerText = "MySQL Localhost: Connected";
-      } else {
-        badge.className = "hidden sm:inline-flex items-center space-x-1.5 px-2.5 py-1 bg-amber-500/20 text-amber-100 text-[10.5px] font-bold rounded-full border border-amber-400/30 backdrop-blur-md shadow-2xs";
-        text.innerText = "LocalStorage Mode";
-      }
-    }
-
     // 1. BANK SOAL SEJARAH INDONESIA MASTER (50 BUTIR: PILIHAN GANDA A-E & ESAI ISIAN / URAIAN AI)
     const defaultMasterQuestions = [
       // ==========================================
@@ -3025,27 +2972,9 @@
       return defaultMasterQuestions;
     }
 
-    async function syncQuestionsFromMySQL() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/questions`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-            questions = json.data;
-            localStorage.setItem('cbt_question_bank_v3', JSON.stringify(questions));
-            console.log(`✓ [MYSQL SYNC]: Berhasil sinkronisasi ${questions.length} butir soal dari MySQL localhost`);
-            return questions;
-          }
-        }
-      } catch (e) {
-        console.warn('! [MYSQL SYNC]: Gagal sinkronisasi MySQL, menggunakan fallback lokal:', e.message);
-      }
-      return questions;
-    }
-
     let questions = getStoredQuestions();
 
-    // 2. SISTEM TOKEN 5-MENIT
+    // 2. SISTEM TOKEN 5-MENIT (STANDALONE CLIENT ENGINE)
     let currentToken = "SEJ-9K4P";
     let tokenRemainingSec = 300;
     let tokenTimerInterval = null;
@@ -3059,28 +2988,9 @@
       return `SEJ-${code}`;
     }
 
-    async function startTokenTimer() {
+    function startTokenTimer() {
       if (tokenTimerInterval) clearInterval(tokenTimerInterval);
       
-      // Try to fetch active token from MySQL
-      try {
-        const res = await fetch(`${API_BASE_URL}/token`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.token) {
-            currentToken = json.token;
-            tokenRemainingSec = json.remainingSec || 300;
-            localStorage.setItem('cbt_active_token', currentToken);
-            localStorage.setItem('cbt_token_expires', (Math.floor(Date.now() / 1000) + tokenRemainingSec).toString());
-            updateTokenDisplays();
-            startLocalTokenInterval();
-            return;
-          }
-        }
-      } catch (e) {
-        // Fallback to local timer
-      }
-
       const storedToken = localStorage.getItem('cbt_active_token');
       const storedTime = localStorage.getItem('cbt_token_expires');
       const now = Math.floor(Date.now() / 1000);
@@ -3109,8 +3019,6 @@
           const currentNow = Math.floor(Date.now() / 1000);
           localStorage.setItem('cbt_active_token', currentToken);
           localStorage.setItem('cbt_token_expires', (currentNow + 300).toString());
-          // Sync new token to MySQL
-          fetch(`${API_BASE_URL}/token/regenerate`, { method: 'POST' }).catch(() => {});
         }
         updateTokenDisplays();
       }, 1000);
@@ -3328,23 +3236,6 @@
 
     let currentExamBab = 'BAB 1';
 
-    async function syncBabSessionsFromMySQL() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/sessions`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.access) {
-            localStorage.setItem('cbt_bab_access_control', JSON.stringify(json.access));
-            renderAdminBabControlGrid();
-            renderStudentBabCards();
-            console.log('✓ [MYSQL SYNC]: Status akses BAB berhasil disinkronkan dari MySQL');
-          }
-        }
-      } catch (e) {
-        console.warn('! [MYSQL SYNC]: Gagal sinkronisasi sesi BAB dari MySQL:', e.message);
-      }
-    }
-
     function getBabAccessControl() {
       try {
         const stored = localStorage.getItem('cbt_bab_access_control');
@@ -3357,22 +3248,6 @@
       localStorage.setItem('cbt_bab_access_control', JSON.stringify(access));
       renderAdminBabControlGrid();
       renderStudentBabCards();
-
-      // Sinkronisasi status akses BAB ke MySQL localhost
-      fetch(`${API_BASE_URL}/sessions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ access })
-      })
-      .then(res => res.json())
-      .then(json => {
-        if (json.success) {
-          console.log('✓ [MYSQL]: Status sesi BAB tersimpan ke database MySQL');
-        }
-      })
-      .catch(err => {
-        console.warn('! [MYSQL]: Offline fallback, status sesi disimpan di localStorage');
-      });
     }
 
     function toggleBabAccess(babKey) {
@@ -5611,27 +5486,6 @@
       existingSubmissions.unshift(studentSubmission);
       localStorage.setItem('cbt_all_submissions', JSON.stringify(existingSubmissions));
 
-      // Kirim hasil ujian secara real-time ke database MySQL localhost
-      fetch(`${API_BASE_URL}/submissions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...studentSubmission,
-          bab: currentExamBab,
-          answers: userAnswers
-        })
-      })
-      .then(r => r.json())
-      .then(res => {
-        if (res.success) {
-          console.log('✓ [MYSQL]: Hasil ujian siswa berhasil disimpan ke database MySQL');
-          syncSubmissionsFromMySQL();
-        }
-      })
-      .catch(e => {
-        console.warn('! [MYSQL]: Offline fallback, hasil tersimpan di localStorage:', e.message);
-      });
-
       document.getElementById("final-score-display").innerText = finalScore;
       document.getElementById("count-correct").innerText = correctCount;
       document.getElementById("count-wrong").innerText = wrongCount;
@@ -5754,33 +5608,12 @@
       }
     ];
 
-    let mysqlSubmissions = [];
-
-    async function syncSubmissionsFromMySQL() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/submissions`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && Array.isArray(json.data)) {
-            mysqlSubmissions = json.data;
-            if (currentView === 'view-admin') {
-              renderAdminTable(getCombinedStudents());
-            }
-            console.log(`✓ [MYSQL SYNC]: Berhasil memuat ${mysqlSubmissions.length} data nilai siswa dari MySQL`);
-          }
-        }
-      } catch (e) {
-        console.warn('! [MYSQL SYNC]: Gagal memuat data nilai dari MySQL:', e.message);
-      }
-    }
-
     function getCombinedStudents() {
       const stored = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
-      const all = [...mysqlSubmissions, ...stored];
       const seen = new Set();
       const unique = [];
       
-      all.forEach(s => {
+      stored.forEach(s => {
         const key = `${s.nisn}_${s.waktuSubmit}`;
         if (!seen.has(key)) {
           seen.add(key);
@@ -6007,9 +5840,8 @@
       document.body.removeChild(link);
     }
 
-    // INITIAL LOAD (Instant Non-Blocking Rendering)
+    // INITIAL LOAD (Instant Standalone Client Rendering)
     window.onload = () => {
-      // 1. Render UI immediately with 0ms delay
       startTokenTimer();
       checkAuthHeader();
       if (currentAuthRole === 'teacher') {
@@ -6023,25 +5855,7 @@
         switchView('view-portal');
       }
       lucide.createIcons();
-
-      // 2. Background async sync with database
-      initBackgroundDatabaseSync();
     };
-
-    async function initBackgroundDatabaseSync() {
-      try {
-        const connected = await checkMySQLConnection();
-        if (connected) {
-          await Promise.allSettled([
-            syncQuestionsFromMySQL(),
-            syncBabSessionsFromMySQL(),
-            syncSubmissionsFromMySQL()
-          ]);
-        }
-      } catch (e) {
-        console.warn('! [SYNC INFO]: Running in LocalStorage Hybrid Mode');
-      }
-    }
   </script>
 </body>
 </html>
