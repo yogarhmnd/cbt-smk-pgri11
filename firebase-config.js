@@ -14,12 +14,13 @@
 // Ganti nilai di bawah ini dengan konfigurasi dari Firebase Console Anda:
 // (Project Settings -> General -> Your apps -> Web app)
 const FIREBASE_CONFIG = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
+  apiKey: "AIzaSyBwSy6tiAPC8OgsVKrmWVaO4jV9uGU4Gfo",
   authDomain: "cbt-smk-pgri11.firebaseapp.com",
   projectId: "cbt-smk-pgri11",
-  storageBucket: "cbt-smk-pgri11.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  storageBucket: "cbt-smk-pgri11.firebasestorage.app",
+  messagingSenderId: "45216062981",
+  appId: "1:45216062981:web:8f7baeaaf66142db20866c",
+  measurementId: "G-VYX9MX7NWQ"
 };
 
 // =========================================================================
