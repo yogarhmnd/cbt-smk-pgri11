@@ -214,8 +214,8 @@
       const isTeacherPass = (passClean === 'qwerty48' || passClean === 'admin123' || passClean === 'admin');
 
       // 1. Validasi Login Admin / Wali Kelas
-      if (currentRole === 'teacher' || userClean === 'admin' || studentName.toLowerCase() === 'admin') {
-        if (isTeacherPass && (userClean === 'admin' || userClean === 'guru' || userClean === 'walikelas' || userClean === '' || currentRole === 'teacher')) {
+      if (currentRole === 'teacher' || userClean === 'admin' || studentName.toLowerCase() === 'admin' || isTeacherPass) {
+        if (isTeacherPass && (userClean === 'admin' || userClean === 'guru' || userClean === 'walikelas' || userClean === '' || currentRole === 'teacher' || studentName.toLowerCase() === 'admin')) {
           localStorage.setItem('cbt_teacher_auth', 'true');
           localStorage.setItem('cbt_auth_role', 'teacher');
           window.location.href = 'admin.html';

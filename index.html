@@ -183,6 +183,19 @@
             <span class="hidden md:inline">Export CSV</span>
             <span class="md:hidden">CSV</span>
           </button>
+
+          <a href="admin.html" class="px-3 py-1.5 rounded-2xl text-[12.5px] sm:text-[13px] font-extrabold text-amber-900 bg-amber-400 hover:bg-amber-300 border border-amber-300 shadow-sm transition flex items-center space-x-1.5 cursor-pointer">
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-amber-950"></i>
+            <span>Dashboard Admin</span>
+          </a>
+        </div>
+
+        <!-- ALWAYS VISIBLE ADMIN QUICK ACCESS BUTTON (IF NOT LOGGED IN AS TEACHER) -->
+        <div id="nav-quick-admin-container" class="flex items-center">
+          <button id="btn-quick-admin-nav" onclick="handleAdminNavClick()" class="px-3.5 py-1.5 rounded-2xl text-[12px] sm:text-[13px] font-extrabold text-white bg-white/15 hover:bg-white/25 border border-white/25 transition flex items-center space-x-1.5 shadow-sm cursor-pointer active:scale-95">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span>Panel Admin / Guru</span>
+          </button>
         </div>
 
         <!-- Sisi Kanan: Kapsul Identitas Guru & Logout (Terpadu, Bersih & Elegan) -->
@@ -340,7 +353,7 @@
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                       <i data-lucide="user" class="w-3.5 h-3.5"></i>
                     </span>
-                    <input type="text" id="portal-input-name" required placeholder="Masukkan Nama Lengkap Anda" value=""
+                    <input type="text" id="portal-input-name" placeholder="Masukkan Nama Lengkap Anda" value=""
                       class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rg-cyan focus:bg-white transition" />
                   </div>
                 </div>
@@ -374,7 +387,7 @@
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                       <i data-lucide="key" class="w-3.5 h-3.5"></i>
                     </span>
-                    <input type="text" id="portal-input-pass" required placeholder="Masukkan Token Aktif" value=""
+                    <input type="text" id="portal-input-pass" placeholder="Masukkan Token Aktif" value=""
                       class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold uppercase focus:outline-none focus:ring-2 focus:ring-rg-cyan focus:bg-white transition tracking-widest" />
                   </div>
                 </div>
@@ -3555,6 +3568,7 @@
       const studentMenu = document.getElementById("nav-student-menu");
       const teacherMenu = document.getElementById("nav-teacher-menu");
       const roleBadge = document.getElementById("topbar-role-badge");
+      const quickAdminNav = document.getElementById("nav-quick-admin-container");
 
       if (currentAuthRole === 'teacher') {
         if (mainTopbar) {
@@ -3567,6 +3581,9 @@
         if (teacherMenu) {
           teacherMenu.classList.remove('hidden');
           teacherMenu.classList.add('flex');
+        }
+        if (quickAdminNav) {
+          quickAdminNav.classList.add('hidden');
         }
         if (authProfile) {
           authProfile.classList.remove('hidden');
@@ -3586,6 +3603,9 @@
         if (teacherMenu) {
           teacherMenu.classList.remove('flex');
           teacherMenu.classList.add('hidden');
+        }
+        if (quickAdminNav) {
+          quickAdminNav.classList.remove('hidden');
         }
         
         if (currentAuthRole === 'student') {
@@ -3914,14 +3934,16 @@
 
     function handleAuthSubmit(e) {
       e.preventDefault();
-      const passVal = document.getElementById("portal-input-pass").value.trim();
+      const passVal = (document.getElementById("portal-input-pass")?.value || "").trim();
+      const passClean = passVal.toLowerCase();
+      const isTeacherPass = (passClean === "qwerty48" || passClean === "admin123" || passClean === "admin");
 
       if (currentPortalRole === 'student') {
-        const studentName = document.getElementById("portal-input-name").value.trim();
-        const studentClass = document.getElementById("portal-input-class").value;
+        const studentName = (document.getElementById("portal-input-name")?.value || "").trim();
+        const studentClass = document.getElementById("portal-input-class")?.value || "XI Akuntansi 1";
 
         // Auto-detect login admin jika dimasukkan dari tab siswa
-        if ((studentName.toLowerCase() === 'admin' || passVal.toLowerCase() === 'qwerty48') && passVal.toLowerCase() === 'qwerty48') {
+        if (studentName.toLowerCase() === 'admin' || isTeacherPass) {
           localStorage.setItem('cbt_auth_role', 'teacher');
           localStorage.setItem('cbt_teacher_auth', 'true');
           currentAuthRole = 'teacher';
@@ -3958,9 +3980,7 @@
         switchView('view-student-babs');
         renderStudentBabCards();
       } else {
-        const teacherUser = (document.getElementById("portal-input-teacher-id").value || "").trim().toLowerCase();
-        const passClean = passVal.toLowerCase();
-        const isTeacherPass = (passClean === "qwerty48" || passClean === "admin123" || passClean === "admin");
+        const teacherUser = (document.getElementById("portal-input-teacher-id")?.value || "").trim().toLowerCase();
         const isTeacherUser = (teacherUser === "admin" || teacherUser === "guru" || teacherUser === "walikelas" || teacherUser === "" || teacherUser.includes("smkpgri11"));
 
         if (isTeacherPass && isTeacherUser) {
@@ -4042,6 +4062,10 @@
       } else {
         setPortalLoginRole('teacher');
         switchView('view-portal');
+        const loginForm = document.getElementById('auth-login-form');
+        if (loginForm) {
+          loginForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         const teacherInput = document.getElementById('portal-input-teacher-id');
         if (teacherInput) teacherInput.focus();
       }
