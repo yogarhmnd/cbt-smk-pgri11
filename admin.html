@@ -59,8 +59,8 @@
         </div>
 
         <button onclick="openUploadQuestionsModal()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white rounded-xl text-xs font-extrabold shadow-sm transition cursor-pointer">
-          <i data-lucide="file-up" class="w-4 h-4"></i>
-          <span>Upload Soal (Word/PDF)</span>
+          <i data-lucide="file-input" class="w-4 h-4"></i>
+          <span>Masukkan Soal (Import Word/PDF)</span>
         </button>
 
         <button onclick="forceRegenerateToken()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition">
@@ -212,22 +212,14 @@
           <p class="text-xs text-slate-500 mt-0.5">Terkonfigurasi langsung ke sistem CBT dan ujian siswa. Total aktif: <span id="admin-total-questions-count" class="font-bold text-blue-700">50 Soal</span></p>
         </div>
         
-        <div class="flex items-center space-x-2.5">
+        <div class="flex flex-wrap items-center gap-2.5">
           <button onclick="openBatchAddModal()" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-extrabold shadow-sm transition flex items-center space-x-1.5 cursor-pointer active:scale-95">
             <i data-lucide="layers" class="w-4 h-4"></i>
             <span>+ Penambahan Soal Batch</span>
           </button>
-          <button onclick="openUploadQuestionsModal()" class="px-3.5 py-2 bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl text-xs font-extrabold shadow-sm transition flex items-center space-x-1.5 cursor-pointer">
-            <i data-lucide="file-up" class="w-4 h-4"></i>
-            <span>Upload Soal Word / PDF</span>
-          </button>
-          <button onclick="handleAdminExportWord()" title="Ekspor seluruh bank soal aktif ke dokumen Word" class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-extrabold text-xs border border-blue-200 transition flex items-center space-x-1.5 active:scale-95 cursor-pointer">
-            <i data-lucide="download" class="w-4 h-4"></i>
-            <span>Ekspor ke Word</span>
-          </button>
-          <button onclick="handleAdminExportPdf()" title="Cetak atau simpan seluruh bank soal ke PDF" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-extrabold text-xs border border-rose-200 transition flex items-center space-x-1.5 active:scale-95 cursor-pointer">
-            <i data-lucide="printer" class="w-4 h-4"></i>
-            <span>Ekspor ke PDF</span>
+          <button onclick="openUploadQuestionsModal()" class="px-3.5 py-2 bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl text-xs font-extrabold shadow-sm transition flex items-center space-x-1.5 cursor-pointer active:scale-95">
+            <i data-lucide="file-input" class="w-4 h-4"></i>
+            <span>📥 Masukkan Soal (Import) dari File PDF atau Word</span>
           </button>
           <span class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold flex items-center space-x-1">
             <i data-lucide="check" class="w-3.5 h-3.5"></i>
@@ -1656,11 +1648,11 @@ Bobot: 2.0`;
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3 shrink-0">
         <div class="flex items-center space-x-3.5">
           <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-sky-600 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-sky-500/25">
-            <i data-lucide="file-up" class="w-6 h-6"></i>
+            <i data-lucide="file-input" class="w-6 h-6"></i>
           </div>
           <div>
             <div class="flex items-center space-x-2">
-              <h3 class="text-lg font-extrabold text-slate-900 leading-tight">Upload Soal Word & PDF ke CBT</h3>
+              <h3 class="text-lg font-extrabold text-slate-900 leading-tight">Masukkan Soal (Import) dari File Word & PDF ke CBT</h3>
               <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-50 text-blue-700 border border-blue-200 uppercase">Semua BAB (1 - 6)</span>
             </div>
             <p class="text-xs text-slate-500 mt-0.5">Ekstraksi otomatis dokumen Microsoft Word (.docx), PDF (.pdf), Teks, dan JSON/CSV</p>
