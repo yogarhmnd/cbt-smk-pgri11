@@ -212,6 +212,135 @@ const CBT_DB = {
           console.warn("⚠️ [Firebase] Token listener fallback:", err);
         });
     }
+  },
+
+  /**
+   * Mengambil daftar siswa yang terblokir karena 3x pelanggaran kecurangan
+   */
+  getBlockedStudents() {
+    try {
+      return JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]');
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Memblokir siswa (Nama Lengkap) karena 3x pelanggaran kecurangan
+   */
+  async blockStudent(studentName, reason = '3x Pelanggaran Layar / Kecurangan') {
+    if (!studentName) return;
+    const nameClean = studentName.trim();
+    const list = this.getBlockedStudents();
+    const existingIndex = list.findIndex(s => s.nama.toLowerCase() === nameClean.toLowerCase());
+    
+    const blockData = {
+      nama: nameClean,
+      reason: reason,
+      blockedAt: new Date().toISOString(),
+      waktuBlokir: new Date().toLocaleTimeString('id-ID')
+    };
+
+    if (existingIndex >= 0) {
+      list[existingIndex] = blockData;
+    } else {
+      list.push(blockData);
+    }
+
+    localStorage.setItem('cbt_blocked_students', JSON.stringify(list));
+
+    if (isFirebaseReady && db) {
+      try {
+        await db.collection('cbt_blocked_students').doc(nameClean.toLowerCase().replace(/[^a-z0-9]/g, '_')).set(blockData);
+        console.log("✅ [Firebase] Siswa terblokir disinkronkan ke Firestore:", nameClean);
+      } catch (err) {
+        console.warn("⚠️ [Firebase] Gagal sinkron blokir siswa ke cloud:", err);
+      }
+    }
+    return list;
+  },
+
+  /**
+   * Mereset / membuka blokir login siswa (Fitur Admin Guru)
+   */
+  async unblockStudent(studentName) {
+    if (!studentName) return;
+    const nameClean = studentName.trim().toLowerCase();
+    let list = this.getBlockedStudents();
+    list = list.filter(s => s.nama.toLowerCase() !== nameClean);
+    localStorage.setItem('cbt_blocked_students', JSON.stringify(list));
+
+    // Reset cbt_cheat_count jika siswa lokal
+    const currentStudent = localStorage.getItem('cbt_student_name') || '';
+    if (currentStudent.toLowerCase() === nameClean) {
+      localStorage.setItem('cbt_cheat_count', '0');
+    }
+
+    if (isFirebaseReady && db) {
+      try {
+        await db.collection('cbt_blocked_students').doc(nameClean.replace(/[^a-z0-9]/g, '_')).delete();
+        console.log("✅ [Firebase] Blokir siswa berhasil dibuka:", studentName);
+      } catch (err) {
+        console.warn("⚠️ [Firebase] Gagal hapus blokir di cloud:", err);
+      }
+    }
+    return list;
+  },
+
+  /**
+   * Mereset semua blokir siswa sekaligus (Fitur Admin Guru)
+   */
+  async unblockAllStudents() {
+    localStorage.setItem('cbt_blocked_students', JSON.stringify([]));
+    localStorage.setItem('cbt_cheat_count', '0');
+
+    if (isFirebaseReady && db) {
+      try {
+        const snapshot = await db.collection('cbt_blocked_students').get();
+        const batch = db.batch();
+        snapshot.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
+        console.log("✅ [Firebase] Semua blokir siswa berhasil di-reset.");
+      } catch (err) {
+        console.warn("⚠️ [Firebase] Gagal reset semua blokir:", err);
+      }
+    }
+    return [];
+  },
+
+  /**
+   * Memeriksa apakah siswa sedang dalam status terblokir
+   */
+  isStudentBlocked(studentName) {
+    if (!studentName) return false;
+    const nameClean = studentName.trim().toLowerCase();
+    const list = this.getBlockedStudents();
+    return list.some(s => s.nama.toLowerCase() === nameClean);
+  },
+
+  /**
+   * Mendengarkan daftar siswa terblokir secara Real-time
+   */
+  listenBlockedStudents(onUpdate) {
+    const checkLocal = () => onUpdate(this.getBlockedStudents());
+    checkLocal();
+
+    if (isFirebaseReady && db) {
+      return db.collection('cbt_blocked_students')
+        .onSnapshot((snapshot) => {
+          const list = [];
+          snapshot.forEach(doc => list.push(doc.data()));
+          localStorage.setItem('cbt_blocked_students', JSON.stringify(list));
+          onUpdate(list);
+        }, (err) => {
+          console.warn("⚠️ [Firebase] Blocked students listener error:", err);
+          checkLocal();
+        });
+    }
+
+    const storageHandler = () => checkLocal();
+    window.addEventListener('storage', storageHandler);
+    return () => window.removeEventListener('storage', storageHandler);
   }
 };
 

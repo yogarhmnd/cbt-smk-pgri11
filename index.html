@@ -883,6 +883,12 @@
           </div>
 
           <div class="flex items-center space-x-2 sm:space-x-3">
+            <!-- Anti-Cheat Status Badge (Peringatan X / 3) -->
+            <div id="exam-security-pill" class="flex items-center space-x-1.5 px-3 py-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-2xl text-xs font-black shadow-sm">
+              <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Pelanggaran: <strong id="exam-violation-count" class="text-amber-200">0</strong> / 3</span>
+            </div>
+
             <!-- Micro-interaction feedback -->
             <div id="auto-save-indicator" class="hidden sm:flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 transition-all duration-300 opacity-0 pointer-events-none">
               <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
@@ -1452,6 +1458,26 @@
               </div>
             </div>
 
+          </section>
+
+          <!-- SEKSI PENGAWASAN KECURANGAN & RESET LOGIN SISWA TERBLOKIR -->
+          <section id="admin-blocked-section" class="bg-gradient-to-r from-rose-950 via-slate-900 to-rose-900 text-white rounded-3xl border border-rose-800 p-5 sm:p-6 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center font-bold shrink-0">
+                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <h3 class="text-sm sm:text-base font-extrabold text-white">Pengawasan Kecurangan & Siswa Terblokir</h3>
+                  <span id="badge-blocked-count" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500 text-white">0 Siswa Terblokir</span>
+                </div>
+                <p class="text-xs text-rose-200/80 mt-0.5">Siswa yang melakukan 3x pelanggaran layar ujian otomatis dihentikan dan diblokir sampai Guru Admin mereset login mereka.</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2" id="blocked-students-action-container">
+              <!-- Rendered by JS -->
+            </div>
           </section>
 
           <!-- REKAP TABEL NILAI SISWA DENGAN FILTER 8 KELAS/JURUSAN -->
@@ -2501,23 +2527,43 @@
     </div>
   </div>
 
-  <!-- ================= MODAL ANTI-CHEAT POP-UP ================= -->
-  <div id="cheat-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-rose-100 text-center animate-bounce-short">
-      <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
-        <i data-lucide="shield-alert" class="w-9 h-9"></i>
+  <!-- ================= MODAL ANTI-CHEAT POP-UP (SISTEM 3X PERINGATAN & BLOKIR) ================= -->
+  <div id="cheat-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-[32px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-rose-200 text-center relative overflow-hidden animate-bounce-short">
+      
+      <!-- Top Alert Icon -->
+      <div id="cheat-icon-container" class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
+        <i id="cheat-icon" data-lucide="shield-alert" class="w-9 h-9"></i>
       </div>
-      <h3 class="text-lg font-extrabold text-slate-900 mb-2">Peringatan Kecurangan Terdeteksi!</h3>
-      <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
-        Sistem mendeteksi Anda berpindah tab browser, membuka split-screen, atau keluar dari jendela ujian. Aktivitas tercatat di server pengawas guru.
+
+      <!-- Strike Badge (1/3, 2/3, 3/3) -->
+      <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-black mb-3 bg-amber-100 text-amber-900 border border-amber-300" id="cheat-badge-container">
+        <span id="cheat-badge-text">Peringatan 1 dari 3</span>
+      </div>
+
+      <h3 class="text-lg sm:text-xl font-black text-slate-900 mb-2" id="cheat-modal-title">Peringatan Kecurangan Terdeteksi!</h3>
+      
+      <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed" id="cheat-modal-desc">
+        Sistem mendeteksi Anda berpindah tab browser, membuka floating app, atau keluar dari layar fullscreen ujian.
       </p>
-      <div class="bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-2xl p-3 mb-5 flex items-center justify-between">
-        <span>Total Peringatan Pelanggaran:</span>
-        <span id="violation-count" class="font-extrabold text-base text-rose-700">1</span>
+
+      <!-- Reason box -->
+      <div id="cheat-reason-box" class="bg-rose-50 border border-rose-200 text-rose-900 text-xs font-bold rounded-2xl p-3.5 mb-5 text-left space-y-1">
+        <div class="flex items-center justify-between text-[11px] font-extrabold text-rose-700 uppercase tracking-wider">
+          <span>Jenis Pelanggaran:</span>
+          <span id="cheat-strike-label" class="text-rose-950 font-black">1 / 3 Batas Toleransi</span>
+        </div>
+        <p id="cheat-reason-text" class="text-xs font-semibold text-rose-800 mt-0.5">Keluar dari jendela ujian / membuka aplikasi lain</p>
       </div>
-      <button onclick="dismissCheatModal()" class="w-full py-3 px-4 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 active:scale-[0.98] text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg shadow-rose-600/30 transition">
-        Saya Mengerti & Kembali Mengerjakan
-      </button>
+
+      <!-- Buttons: Dismiss or Exit -->
+      <div id="cheat-modal-actions">
+        <button id="btn-cheat-dismiss" onclick="dismissCheatModal()" class="w-full py-3 px-4 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 active:scale-[0.98] text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg shadow-rose-600/30 transition cursor-pointer flex items-center justify-center space-x-1.5">
+          <i data-lucide="maximize" class="w-4 h-4"></i>
+          <span id="btn-cheat-dismiss-text">Saya Mengerti & Masuk Fullscreen Kembali</span>
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -3949,6 +3995,13 @@
           return;
         }
 
+        // Cek status blokir kecurangan siswa
+        const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
+        if (isBlocked) {
+          alert(`⛔ AKSES LOGIN DIBLOKIR OLEH SISTEM CBT:\n\nNama Siswa: "${studentName}"\nStatus: DIBLOKIR (3x Pelanggaran / Keluar Layar Ujian)\n\nAnda tidak dapat login atau mengikuti ujian karena telah terdiskualifikasi pada sesi sebelumnya. Silakan temui Guru Pengawas / Admin di kelas untuk mereset izin login Anda.`);
+          return;
+        }
+
         if (!passVal) {
           alert("Silakan masukkan Token Ujian Aktif.");
           document.getElementById("portal-input-pass").focus();
@@ -4038,11 +4091,40 @@
       }
     }
 
+    function enterExamFullscreen() {
+      try {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch(() => {});
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        }
+      } catch (e) {
+        console.warn("Fullscreen permission:", e);
+      }
+    }
+
     function confirmStartExam() {
+      const studentName = localStorage.getItem('cbt_student_name') || '';
+      const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
+      if (isBlocked) {
+        alert(`⛔ AKSES UJIAN DIBLOKIR:\n\nNama Siswa "${studentName}" sedang dalam status TERBLOKIR karena 3x pelanggaran kecurangan. Silakan hubungi Guru Pengawas / Admin untuk mereset izin login Anda.`);
+        return;
+      }
+
       const modal = document.getElementById('modal-student-exam-rules');
       if (modal) modal.classList.add('hidden');
+
+      cheatViolations = 0;
+      localStorage.setItem('cbt_cheat_count', '0');
+      const badgeEl = document.getElementById("exam-violation-count");
+      if (badgeEl) badgeEl.innerText = "0";
+
       switchView('view-exam');
       initExamView();
+      enterExamFullscreen();
     }
 
     function handleAdminNavClick() {
@@ -6480,24 +6562,204 @@ Bobot: 2.0`;
         }
       });
 
-      // 6. Tab switching / Window blur monitoring
+      // 6. Tab switching / Window blur / Floating app monitoring
       document.addEventListener("visibilitychange", () => {
-        if (document.hidden && currentView === 'view-exam') triggerCheatWarning();
+        if (document.hidden && currentView === 'view-exam') {
+          triggerCheatWarning("Meninggalkan tab ujian / beralih ke tab browser lain");
+        }
       });
+
       window.addEventListener("blur", () => {
-        if (currentView === 'view-exam') triggerCheatWarning();
+        if (currentView === 'view-exam') {
+          triggerCheatWarning("Kehilangan fokus layar (Membuka aplikasi lain / Floating App)");
+        }
       });
+
+      window.addEventListener("pagehide", () => {
+        if (currentView === 'view-exam') {
+          triggerCheatWarning("Meninggalkan halaman ujian");
+        }
+      });
+
+      // 7. Fullscreen exit detection
+      const onFullscreenChange = () => {
+        const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        if (!isFullscreen && currentView === 'view-exam') {
+          if (cheatViolations < 3) {
+            triggerCheatWarning("Keluar dari Mode Layar Penuh (Fullscreen Ujian)");
+          }
+        }
+      };
+      document.addEventListener("fullscreenchange", onFullscreenChange);
+      document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+      document.addEventListener("mozfullscreenchange", onFullscreenChange);
+      document.addEventListener("MSFullscreenChange", onFullscreenChange);
     }
 
-    function triggerCheatWarning() {
+    function triggerCheatWarning(reason = 'Berpindah tab / keluar dari layar ujian') {
+      if (currentView !== 'view-exam') return;
+      
       cheatViolations++;
       localStorage.setItem('cbt_cheat_count', cheatViolations.toString());
-      document.getElementById("violation-count").innerText = cheatViolations;
-      document.getElementById("cheat-modal").classList.remove("hidden");
+      
+      const badgeEl = document.getElementById("exam-violation-count");
+      if (badgeEl) badgeEl.innerText = cheatViolations;
+
+      const modal = document.getElementById("cheat-modal");
+      const title = document.getElementById("cheat-modal-title");
+      const desc = document.getElementById("cheat-modal-desc");
+      const badgeText = document.getElementById("cheat-badge-text");
+      const badgeCont = document.getElementById("cheat-badge-container");
+      const strikeLabel = document.getElementById("cheat-strike-label");
+      const reasonText = document.getElementById("cheat-reason-text");
+      const btnDismiss = document.getElementById("btn-cheat-dismiss");
+      const btnText = document.getElementById("btn-cheat-dismiss-text");
+
+      if (reasonText) reasonText.innerText = reason;
+      if (strikeLabel) strikeLabel.innerText = `${cheatViolations} / 3 Batas Toleransi`;
+
+      if (cheatViolations === 1) {
+        if (title) title.innerText = "Peringatan 1 dari 3 Terdeteksi!";
+        if (desc) desc.innerText = "Sistem mendeteksi Anda keluar dari jendela ujian atau membuka aplikasi lain. Harap tetap berada di dalam layar ujian penuh.";
+        if (badgeText) badgeText.innerText = "Peringatan 1 dari 3";
+        if (badgeCont) badgeCont.className = "inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-black mb-3 bg-amber-100 text-amber-900 border border-amber-300";
+        if (btnText) btnText.innerText = "Saya Mengerti & Lanjutkan Fullscreen (1/3)";
+        if (btnDismiss) {
+          btnDismiss.onclick = () => dismissCheatModal();
+          btnDismiss.className = "w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 active:scale-[0.98] text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg shadow-amber-600/30 transition cursor-pointer flex items-center justify-center space-x-1.5";
+        }
+        if (modal) modal.classList.remove("hidden");
+      } else if (cheatViolations === 2) {
+        if (title) title.innerText = "🚨 PERINGATAN KERAS (2 dari 3)";
+        if (desc) desc.innerHTML = "<strong class='text-rose-600'>INI PERINGATAN TERAKHIR!</strong> Jika Anda keluar dari layar ujian <strong>1 KALI LAGI</strong>, ujian akan langsung DIHENTIKAN OTOMATIS, lembar ujian dikumpulkan, dan akun Anda DIBLOKIR.";
+        if (badgeText) badgeText.innerText = "PERINGATAN TERAKHIR (2/3)";
+        if (badgeCont) badgeCont.className = "inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-black mb-3 bg-rose-100 text-rose-900 border border-rose-300 animate-pulse";
+        if (btnText) btnText.innerText = "Saya Paham & Kembali ke Ujian (TOLERANSI TERAKHIR)";
+        if (btnDismiss) {
+          btnDismiss.onclick = () => dismissCheatModal();
+          btnDismiss.className = "w-full py-3 px-4 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 active:scale-[0.98] text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg shadow-rose-600/30 transition cursor-pointer flex items-center justify-center space-x-1.5";
+        }
+        if (modal) modal.classList.remove("hidden");
+      } else if (cheatViolations >= 3) {
+        // Pelanggaran ke-3: Diskualifikasi otomatis & Blokir
+        handleExamForceDisqualification(reason);
+      }
+      lucide.createIcons();
     }
 
     function dismissCheatModal() {
-      document.getElementById("cheat-modal").classList.add("hidden");
+      const modal = document.getElementById("cheat-modal");
+      if (modal) modal.classList.add("hidden");
+      if (cheatViolations < 3 && currentView === 'view-exam') {
+        enterExamFullscreen();
+      }
+    }
+
+    function handleExamForceDisqualification(reason = '3x Keluar dari Layar Ujian / Kecurangan') {
+      const studentName = localStorage.getItem('cbt_student_name') || 'Siswa';
+      const studentNisn = localStorage.getItem('cbt_student_nisn') || '0000000000';
+      const studentClass = localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1';
+
+      // 1. Blokir nama siswa di CBT_DB & localStorage
+      if (window.CBT_DB) {
+        window.CBT_DB.blockStudent(studentName, reason);
+      } else {
+        const list = JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]');
+        if (!list.some(s => s.nama.toLowerCase() === studentName.toLowerCase())) {
+          list.push({ nama: studentName, reason: reason, waktuBlokir: new Date().toLocaleTimeString('id-ID') });
+          localStorage.setItem('cbt_blocked_students', JSON.stringify(list));
+        }
+      }
+
+      // 2. Hitung jawaban saat ini
+      let pgScore = 0;
+      let essayScore = 0;
+      let totalMaxPoints = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+
+      questions.forEach((q, idx) => {
+        const qPoints = q.points || (q.type === 'essay' ? 10 : 2.5);
+        totalMaxPoints += qPoints;
+        if (q.type === 'essay') {
+          const studentEssay = userAnswers[idx]?.essayAnswer || "";
+          if (studentEssay.trim()) {
+            const aiResult = gradeEssayWithAI(studentEssay, q);
+            essayScore += aiResult.score;
+          }
+        } else {
+          const ans = userAnswers[idx]?.answer;
+          if (ans === q.correct) {
+            correctCount++;
+            pgScore += qPoints;
+          } else {
+            wrongCount++;
+          }
+        }
+      });
+
+      const rawTotal = pgScore + essayScore;
+      const finalScore = totalMaxPoints > 0 ? ((rawTotal / totalMaxPoints) * 100).toFixed(1) : "0.0";
+
+      const disqualifiedSubmission = {
+        nisn: studentNisn,
+        nama: studentName,
+        kelas: studentClass,
+        nilai: finalScore,
+        pgScore: pgScore.toFixed(1),
+        essayScore: essayScore.toFixed(1),
+        benar: correctCount,
+        salah: wrongCount,
+        pelanggaran: 3,
+        status: 'BLOCKED',
+        isBlocked: true,
+        catatan: `DISKUALIFIKASI: 3x Pelanggaran (${reason})`,
+        waktuSubmit: new Date().toLocaleTimeString('id-ID')
+      };
+
+      const existingSubmissions = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
+      existingSubmissions.unshift(disqualifiedSubmission);
+      localStorage.setItem('cbt_all_submissions', JSON.stringify(existingSubmissions));
+
+      if (window.CBT_DB) {
+        window.CBT_DB.saveSubmission(disqualifiedSubmission);
+      }
+
+      // 3. Keluar dari fullscreen
+      try {
+        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } catch (e) {}
+
+      // 4. Tampilkan Modal Diskualifikasi
+      const modal = document.getElementById("cheat-modal");
+      const title = document.getElementById("cheat-modal-title");
+      const desc = document.getElementById("cheat-modal-desc");
+      const badgeText = document.getElementById("cheat-badge-text");
+      const badgeCont = document.getElementById("cheat-badge-container");
+      const strikeLabel = document.getElementById("cheat-strike-label");
+      const reasonText = document.getElementById("cheat-reason-text");
+      const btnDismiss = document.getElementById("btn-cheat-dismiss");
+      const btnText = document.getElementById("btn-cheat-dismiss-text");
+
+      if (title) title.innerText = "⛔ UJIAN DIHENTIKAN OTOMATIS";
+      if (desc) desc.innerHTML = `<strong class='text-rose-600 font-extrabold block text-sm mb-1'>STATUS: TERDISKUALIFIKASI & DIBLOKIR</strong>Anda telah melakukan 3x pelanggaran kecurangan. Sesi ujian Anda telah resmi dihentikan dan lembar jawaban dikumpulkan paksa. Akun atas nama <strong>"${studentName}"</strong> telah <strong>DIBLOKIR</strong> dan tidak dapat login kembali sampai Guru Pengawas / Admin mereset status Anda.`;
+      if (badgeText) badgeText.innerText = "DISKUALIFIKASI (3/3 PELANGGARAN)";
+      if (badgeCont) badgeCont.className = "inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-black mb-3 bg-rose-600 text-white shadow-md";
+      if (strikeLabel) strikeLabel.innerText = "3 / 3 (DISKUALIFIKASI)";
+      if (reasonText) reasonText.innerText = `Terdeteksi 3x keluar dari layar ujian: ${reason}`;
+      
+      if (btnText) btnText.innerText = "Keluar ke Halaman Utama";
+      if (btnDismiss) {
+        btnDismiss.onclick = () => {
+          modal.classList.add("hidden");
+          handleLogout();
+        };
+        btnDismiss.className = "w-full py-3 px-4 bg-slate-900 hover:bg-black text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg transition cursor-pointer flex items-center justify-center space-x-1.5";
+      }
+
+      if (modal) modal.classList.remove("hidden");
+      lucide.createIcons();
     }
 
     function openFinishModal() {
@@ -6747,6 +7009,8 @@ Bobot: 2.0`;
       if (!tbody) return;
       tbody.innerHTML = "";
 
+      updateBlockedStudentsUi();
+
       const totalStudents = document.getElementById('stat-total-students');
       const avgScoreEl = document.getElementById('stat-avg-score');
       const badgeSubmissions = document.getElementById('badge-total-submissions');
@@ -6759,18 +7023,27 @@ Bobot: 2.0`;
         return;
       }
 
+      const blockedList = window.CBT_DB ? window.CBT_DB.getBlockedStudents() : JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]');
+      const isNameBlocked = (name) => blockedList.some(b => b.nama.toLowerCase() === (name || '').toLowerCase());
+
       let totalScoreSum = 0;
       data.forEach((s) => {
         totalScoreSum += parseFloat(s.nilai || 0);
         const isPassed = parseFloat(s.nilai) >= 75.0;
+        const isBlocked = s.status === 'BLOCKED' || parseInt(s.pelanggaran) >= 3 || isNameBlocked(s.nama);
         const hasViolation = parseInt(s.pelanggaran) > 0;
 
         const row = document.createElement("tr");
-        row.className = "hover:bg-slate-50/80 transition";
+        row.className = isBlocked ? "bg-rose-50/70 hover:bg-rose-100/70 transition border-l-4 border-rose-600" : "hover:bg-slate-50/80 transition";
         row.innerHTML = `
           <td class="py-3.5 px-6">
-            <p class="font-extrabold text-slate-900">${s.nama}</p>
-            <p class="text-[11px] text-slate-400 font-mono font-semibold">NISN: ${s.nisn}</p>
+            <div class="flex items-center space-x-2">
+              <div>
+                <p class="font-extrabold text-slate-900">${s.nama}</p>
+                <p class="text-[11px] text-slate-400 font-mono font-semibold">NISN: ${s.nisn}</p>
+              </div>
+              ${isBlocked ? `<span class="px-2 py-0.5 bg-rose-600 text-white rounded-md text-[9px] font-black uppercase">Terblokir</span>` : ''}
+            </div>
           </td>
           <td class="py-3.5 px-4 font-bold text-slate-700">${s.kelas}</td>
           <td class="py-3.5 px-4 text-center font-bold text-slate-600">${s.pgScore || s.benar || '-'}</td>
@@ -6780,21 +7053,31 @@ Bobot: 2.0`;
             </span>
           </td>
           <td class="py-3.5 px-4 text-center">
-            <span class="px-2.5 py-1 rounded-xl font-extrabold text-xs ${isPassed ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'}">
+            <span class="px-2.5 py-1 rounded-xl font-extrabold text-xs ${isBlocked ? 'bg-rose-600 text-white shadow-xs' : (isPassed ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200')}">
               ${s.nilai}
             </span>
           </td>
           <td class="py-3.5 px-4 text-center">
-            ${hasViolation 
-              ? `<span class="px-2.5 py-0.5 bg-rose-100 text-rose-800 rounded-lg font-extrabold text-[10px]">${s.pelanggaran}x Terdeteksi</span>` 
-              : `<span class="text-emerald-600 font-bold text-[11px] flex items-center justify-center gap-1"><i data-lucide="shield" class="w-3.5 h-3.5"></i> Bersih</span>`}
+            ${isBlocked
+              ? `<span class="px-2.5 py-1 bg-rose-600 text-white rounded-xl font-black text-[10px] shadow-sm animate-pulse flex items-center justify-center gap-1"><i data-lucide="shield-alert" class="w-3 h-3"></i> 3x (DIBLOKIR)</span>`
+              : (hasViolation 
+                  ? `<span class="px-2.5 py-0.5 bg-rose-100 text-rose-800 rounded-lg font-extrabold text-[10px]">${s.pelanggaran}x Terdeteksi</span>` 
+                  : `<span class="text-emerald-600 font-bold text-[11px] flex items-center justify-center gap-1"><i data-lucide="shield" class="w-3.5 h-3.5"></i> Bersih</span>`)}
           </td>
           <td class="py-3.5 px-4 text-center text-slate-500 font-mono font-semibold text-[11px]">${s.waktuSubmit}</td>
           <td class="py-3.5 px-6 text-right">
-            <button onclick="openAiReviewModal('${s.nisn}')" class="px-3 py-1 bg-gradient-to-r from-amber-500 to-rg-orange hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-extrabold text-[11px] shadow-xs transition flex items-center space-x-1 ml-auto cursor-pointer">
-              <i data-lucide="sparkles" class="w-3 h-3"></i>
-              <span>Review AI</span>
-            </button>
+            <div class="flex items-center justify-end space-x-1.5">
+              ${isBlocked ? `
+                <button onclick="handleAdminUnblockStudent('${s.nama}')" title="Reset izin login & buka blokir siswa" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-extrabold text-[11px] shadow-sm transition flex items-center space-x-1 cursor-pointer active:scale-95">
+                  <i data-lucide="unlock" class="w-3 h-3"></i>
+                  <span>Reset Login</span>
+                </button>
+              ` : ''}
+              <button onclick="openAiReviewModal('${s.nisn}')" class="px-3 py-1 bg-gradient-to-r from-amber-500 to-rg-orange hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-extrabold text-[11px] shadow-xs transition flex items-center space-x-1 cursor-pointer">
+                <i data-lucide="sparkles" class="w-3 h-3"></i>
+                <span>Review AI</span>
+              </button>
+            </div>
           </td>
         `;
         tbody.appendChild(row);
@@ -6805,6 +7088,103 @@ Bobot: 2.0`;
       }
 
       lucide.createIcons();
+    }
+
+    function updateBlockedStudentsUi() {
+      const list = window.CBT_DB ? window.CBT_DB.getBlockedStudents() : JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]');
+      const countEl = document.getElementById('badge-blocked-count');
+      const container = document.getElementById('blocked-students-action-container');
+
+      if (countEl) countEl.innerText = `${list.length} Siswa Terblokir`;
+
+      if (container) {
+        if (list.length === 0) {
+          container.innerHTML = `<span class="text-xs text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-700/50 px-3 py-1.5 rounded-xl flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Tidak ada siswa terblokir</span>`;
+        } else {
+          let html = `<div class="flex flex-wrap items-center gap-1.5">`;
+          list.forEach(item => {
+            html += `
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-1 bg-rose-900/80 border border-rose-500 text-white rounded-xl text-xs font-bold shadow-xs">
+                <span>${item.nama}</span>
+                <button onclick="handleAdminUnblockStudent('${item.nama}')" title="Reset Login Siswa Ini" class="w-4 h-4 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center cursor-pointer transition">
+                  <i data-lucide="unlock" class="w-2.5 h-2.5"></i>
+                </button>
+              </span>
+            `;
+          });
+          html += `</div>`;
+          html += `
+            <button onclick="handleAdminUnblockAll()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition flex items-center space-x-1 shadow-md cursor-pointer active:scale-95">
+              <i data-lucide="unlock" class="w-3.5 h-3.5"></i>
+              <span>Reset Semua Blokir</span>
+            </button>
+          `;
+          container.innerHTML = html;
+        }
+        lucide.createIcons();
+      }
+    }
+
+    async function handleAdminUnblockStudent(studentName) {
+      if (!confirm(`🔓 RESET LOGIN SISWA:\n\nApakah Anda yakin ingin membuka blokir dan mereset status login untuk siswa "${studentName}"?\n\nSiswa ini akan diizinkan login kembali ke sistem CBT.`)) {
+        return;
+      }
+
+      if (window.CBT_DB) {
+        await window.CBT_DB.unblockStudent(studentName);
+      } else {
+        let list = JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]');
+        list = list.filter(s => s.nama.toLowerCase() !== studentName.toLowerCase());
+        localStorage.setItem('cbt_blocked_students', JSON.stringify(list));
+      }
+
+      const subs = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
+      let updated = false;
+      subs.forEach(s => {
+        if (s.nama.toLowerCase() === studentName.toLowerCase() && s.status === 'BLOCKED') {
+          s.status = 'UNBLOCKED';
+          s.isBlocked = false;
+          s.pelanggaran = 2;
+          updated = true;
+        }
+      });
+      if (updated) {
+        localStorage.setItem('cbt_all_submissions', JSON.stringify(subs));
+      }
+
+      alert(`✅ Berhasil membuka blokir login untuk siswa "${studentName}".\n\nSiswa kini dapat login kembali.`);
+      renderAdminTable(getCombinedStudents());
+    }
+
+    async function handleAdminUnblockAll() {
+      const list = window.CBT_DB ? window.CBT_DB.getBlockedStudents() : JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]');
+      if (list.length === 0) {
+        alert("Tidak ada siswa yang sedang terblokir saat ini.");
+        return;
+      }
+
+      if (!confirm(`🔓 RESET SEMUA BLOKIR SISWA:\n\nApakah Anda ingin membuka blokir untuk seluruh ${list.length} siswa yang terblokir?\n\nSemua siswa yang terblokir akan dapat login kembali.`)) {
+        return;
+      }
+
+      if (window.CBT_DB) {
+        await window.CBT_DB.unblockAllStudents();
+      } else {
+        localStorage.setItem('cbt_blocked_students', JSON.stringify([]));
+      }
+
+      const subs = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
+      subs.forEach(s => {
+        if (s.status === 'BLOCKED') {
+          s.status = 'UNBLOCKED';
+          s.isBlocked = false;
+          s.pelanggaran = 2;
+        }
+      });
+      localStorage.setItem('cbt_all_submissions', JSON.stringify(subs));
+
+      alert("✅ Seluruh blokir login siswa telah berhasil di-reset.");
+      renderAdminTable(getCombinedStudents());
     }
 
     function filterAdminTable() {

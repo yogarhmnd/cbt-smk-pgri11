@@ -237,6 +237,13 @@
           return;
         }
 
+        // Cek apakah Nama Lengkap Siswa sedang terblokir karena kecurangan
+        const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
+        if (isBlocked) {
+          alert(`⛔ AKSES LOGIN DIBLOKIR OLEH SISTEM PENGAMAN CBT:\n\nNama Siswa: "${studentName}"\nStatus: TERBLOKIR (3x Pelanggaran / Keluar Layar Ujian)\n\nAnda tidak dapat login atau mengikuti ujian sampai Guru Pengawas / Admin mereset izin login Anda di Panel Admin.`);
+          return;
+        }
+
         const activeToken = (localStorage.getItem('cbt_active_token') || 'SEJ-2026').trim().toUpperCase();
         if (password && password.toUpperCase() !== activeToken && password.toUpperCase() !== 'SEJ-2026') {
           if (!confirm(`Token yang dimasukkan ("${password}") mungkin berbeda dengan token aktif saat ini.\n\nTetap lanjutkan masuk ke modul ujian?`)) {
