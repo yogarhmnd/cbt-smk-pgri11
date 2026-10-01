@@ -877,8 +877,12 @@
                   <i data-lucide="lock" class="w-3 h-3"></i>
                   <span>Anti-AI Mode</span>
                 </span>
+                <span class="hidden md:inline-flex items-center space-x-1 px-2 py-0.5 rounded-md text-[9.5px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wide" title="Urutan Soal & Pilihan Diacak Otomatis Berbeda untuk Setiap Siswa">
+                  <i data-lucide="shuffle" class="w-3 h-3 text-amber-300"></i>
+                  <span>Soal Teracak Unik</span>
+                </span>
               </div>
-              <p class="text-[11px] text-cyan-200/80 font-medium">SMK PGRI 11 CILEDUG • 50 Butir Soal Teracak</p>
+              <p class="text-[11px] text-cyan-200/80 font-medium">SMK PGRI 11 CILEDUG • Paket Soal Teracak (Anti-Kerjasama)</p>
             </div>
           </div>
 
@@ -2624,7 +2628,8 @@
           </p>
           <ul class="list-disc list-inside space-y-1 text-[11.5px] text-amber-950 font-medium pl-1">
             <li>Dilarang berpindah tab peramban (browser), membuka aplikasi lain, atau meminimize jendela ujian.</li>
-            <li>Sistem CBT dilengkapi <strong>Sensor Deteksi Otomatis</strong> yang mencatat setiap upaya meninggalkan layar ujian dan melaporkannya ke dashboard Pengawas/Guru.</li>
+            <li>Sistem CBT menerapkan <strong>Pengacakan Butir Soal & Opsi Jawaban</strong> secara unik untuk tiap peserta sehingga nomor soal Anda berbeda dengan teman di sebelah.</li>
+            <li>Sistem CBT dilengkapi <strong>Sensor Deteksi Otomatis (Maksimal 3x Toleransi)</strong> yang langsung mendiskualifikasi dan memblokir siswa jika melanggar.</li>
             <li>Dilarang bekerja sama, menggunakan catatan fisik, ataupun meminta bantuan orang lain selama ujian berlangsung.</li>
           </ul>
         </div>
@@ -4138,7 +4143,7 @@
       if (badgeEl) badgeEl.innerText = "0";
 
       switchView('view-exam');
-      initExamView();
+      initExamView(true);
       enterExamFullscreen();
     }
 
@@ -4189,6 +4194,12 @@
     function handleLogout() {
       localStorage.removeItem('cbt_auth_role');
       localStorage.removeItem('cbt_teacher_auth');
+      localStorage.removeItem('cbt_student_name');
+      localStorage.removeItem('cbt_student_class');
+      localStorage.removeItem('cbt_current_shuffled_questions');
+      localStorage.removeItem('cbt_shuffled_bab');
+      localStorage.removeItem('cbt_user_answers');
+      localStorage.removeItem('cbt_timer_sec');
       currentAuthRole = null;
       currentPortalRole = 'student';
       
@@ -6100,21 +6111,97 @@ Bobot: 2.0`;
     let examRemainingSeconds = parseInt(localStorage.getItem('cbt_timer_sec') || (90 * 60).toString());
     let examTimerInterval = null;
 
-    function initExamView() {
+    /**
+     * Fisher-Yates Randomization Engine untuk CBT Sejarah
+     * Mengacak urutan butir soal & opsi pilihan ganda secara unik per sesi siswa
+     */
+    function randomizeExamQuestionsForStudent(rawQuestions) {
+      if (!Array.isArray(rawQuestions) || rawQuestions.length === 0) return [];
+
+      // 1. Deep clone agar master bank soal asli tidak terpengaruh
+      const cloned = JSON.parse(JSON.stringify(rawQuestions));
+
+      // 2. Acak urutan butir soal (Fisher-Yates Shuffle)
+      for (let i = cloned.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+
+      // 3. Acak opsi pilihan ganda (A, B, C, D, E) untuk butir soal bertipe 'mcq'
+      const standardKeys = ['A', 'B', 'C', 'D', 'E'];
+      cloned.forEach((q) => {
+        if ((!q.type || q.type === 'mcq') && Array.isArray(q.options) && q.options.length > 1) {
+          const originalCorrectKey = q.correct;
+          const targetCorrectOpt = q.options.find(o => o.key === originalCorrectKey);
+          const targetCorrectText = targetCorrectOpt ? targetCorrectOpt.text : null;
+
+          // Acak opsi
+          const shuffledOpts = [...q.options];
+          for (let i = shuffledOpts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledOpts[i], shuffledOpts[j]] = [shuffledOpts[j], shuffledOpts[i]];
+          }
+
+          // Tetapkan ulang key A, B, C, D, E & perbarui kunci jawaban
+          let newCorrectKey = originalCorrectKey;
+          q.options = shuffledOpts.map((opt, idx) => {
+            const newKey = standardKeys[idx] || String.fromCharCode(65 + idx);
+            if (targetCorrectText && opt.text === targetCorrectText) {
+              newCorrectKey = newKey;
+            }
+            return {
+              key: newKey,
+              text: opt.text
+            };
+          });
+          q.correct = newCorrectKey;
+        }
+      });
+
+      return cloned;
+    }
+
+    function initExamView(isNewSession = false) {
       const studentName = localStorage.getItem('cbt_student_name') || 'Ahmad Fauzi';
       const studentClass = localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1';
       const chosenBab = currentExamBab || localStorage.getItem('cbt_selected_exam_bab') || 'BAB 1';
 
       const master = getStoredQuestions();
+      let baseQuestions = [];
       if (chosenBab === 'ALL') {
-        questions = master;
+        baseQuestions = master;
       } else {
         const filtered = master.filter(q => q.bab === chosenBab);
-        if (filtered.length > 0) {
-          questions = filtered;
-        } else {
-          questions = master;
+        baseQuestions = filtered.length > 0 ? filtered : master;
+      }
+
+      // Cek apakah ada sesi soal teracak tersimpan (untuk menjaga konsistensi jika reload browser saat ujian)
+      const savedShuffled = localStorage.getItem('cbt_current_shuffled_questions');
+      const savedBab = localStorage.getItem('cbt_shuffled_bab');
+
+      if (!isNewSession && savedShuffled && savedBab === chosenBab) {
+        try {
+          questions = JSON.parse(savedShuffled);
+          userAnswers = JSON.parse(localStorage.getItem('cbt_user_answers') || '{}');
+          examRemainingSeconds = parseInt(localStorage.getItem('cbt_timer_sec') || (90 * 60).toString());
+        } catch (e) {
+          questions = randomizeExamQuestionsForStudent(baseQuestions);
+          localStorage.setItem('cbt_current_shuffled_questions', JSON.stringify(questions));
+          localStorage.setItem('cbt_shuffled_bab', chosenBab);
+          userAnswers = {};
+          localStorage.removeItem('cbt_user_answers');
+          examRemainingSeconds = 90 * 60;
+          localStorage.setItem('cbt_timer_sec', examRemainingSeconds.toString());
         }
+      } else {
+        // Sesi ujian baru: Acak secara unik untuk siswa ini
+        questions = randomizeExamQuestionsForStudent(baseQuestions);
+        localStorage.setItem('cbt_current_shuffled_questions', JSON.stringify(questions));
+        localStorage.setItem('cbt_shuffled_bab', chosenBab);
+        userAnswers = {};
+        localStorage.removeItem('cbt_user_answers');
+        examRemainingSeconds = 90 * 60;
+        localStorage.setItem('cbt_timer_sec', examRemainingSeconds.toString());
       }
 
       document.getElementById('exam-student-name').innerText = studentName;
@@ -6130,13 +6217,10 @@ Bobot: 2.0`;
 
       const metaSub = document.querySelector('#view-exam p.text-\\[11px\\]');
       if (metaSub) {
-        metaSub.innerText = `SMK PGRI 11 CILEDUG • ${questions.length} Butir Soal Teracak`;
+        metaSub.innerText = `SMK PGRI 11 CILEDUG • ${questions.length} Butir Soal Teracak (Anti-Kerjasama)`;
       }
 
-      // Reset state for new exam session
       currentIndex = 0;
-      userAnswers = {};
-      examRemainingSeconds = 90 * 60;
 
       renderQuestionGrid();
       loadQuestion(currentIndex);
@@ -6891,6 +6975,12 @@ Bobot: 2.0`;
       if (window.CBT_DB) {
         window.CBT_DB.saveSubmission(studentSubmission);
       }
+
+      // Bersihkan sesi soal teracak untuk pengerjaan berikutnya
+      localStorage.removeItem('cbt_current_shuffled_questions');
+      localStorage.removeItem('cbt_shuffled_bab');
+      localStorage.removeItem('cbt_user_answers');
+      localStorage.removeItem('cbt_timer_sec');
 
       document.getElementById("final-score-display").innerText = finalScore;
       document.getElementById("count-correct").innerText = correctCount;
