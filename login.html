@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Firebase Compatibility SDK & Firestore Cloud DB -->
@@ -16,7 +16,7 @@
   <script src="firebase-config.js"></script>
 
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
@@ -41,61 +41,97 @@
 
     <!-- Role Tab Selector -->
     <div class="flex border-b border-slate-200 bg-slate-50 text-xs font-bold">
-      <button id="tab-student" onclick="setRole('student')" class="flex-1 py-3.5 text-center text-blue-700 border-b-2 border-blue-700 bg-white transition">
-        <i data-lucide="user" class="w-3.5 h-3.5 inline mr-1"></i> Peserta Ujian (Siswa)
+      <button id="tab-student" onclick="setRole('student')" type="button" class="flex-1 py-3.5 text-center text-blue-700 border-b-2 border-blue-700 bg-white transition cursor-pointer">
+        <i data-lucide="user" class="w-3.5 h-3.5 inline mr-1"></i> Peserta Siswa
       </button>
-      <button id="tab-teacher" onclick="setRole('teacher')" class="flex-1 py-3.5 text-center text-slate-500 hover:text-slate-700 transition">
+      <button id="tab-teacher" onclick="setRole('teacher')" type="button" class="flex-1 py-3.5 text-center text-slate-500 hover:text-slate-700 transition cursor-pointer">
         <i data-lucide="shield-check" class="w-3.5 h-3.5 inline mr-1"></i> Admin / Guru
       </button>
     </div>
 
     <!-- Form Container -->
-    <div class="p-8">
-      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5">
+    <div class="p-7 sm:p-8">
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         
-        <!-- Field Identifier (NISN or NIP) -->
+        <!-- Field Nama Lengkap Siswa (Khusus Siswa, Default Kosong) -->
+        <div id="wrapper-student-name">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Nama Lengkap Siswa
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="user" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="input-student-name" placeholder="Masukkan Nama Lengkap Anda" value=""
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition" />
+          </div>
+        </div>
+
+        <!-- Field Kelas / Jurusan (Khusus Siswa) -->
+        <div id="wrapper-student-class">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            Kelas & Jurusan
+          </label>
+          <div class="relative">
+            <select id="input-student-class" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition">
+              <option value="XI Akuntansi 1">XI Akuntansi 1</option>
+              <option value="XI Akuntansi 2">XI Akuntansi 2</option>
+              <option value="XI Manajemen Perkantoran dan Layanan Bisnis 1">XI Manajemen Perkantoran 1</option>
+              <option value="XI Manajemen Perkantoran dan Layanan Bisnis 2">XI Manajemen Perkantoran 2</option>
+              <option value="XI Manajemen Perkantoran dan Layanan Bisnis 3">XI Manajemen Perkantoran 3</option>
+              <option value="XI Bisnis Ritel 1">XI Bisnis Ritel 1</option>
+              <option value="XI Bisnis Ritel 2">XI Bisnis Ritel 2</option>
+              <option value="XI Bisnis Ritel 3">XI Bisnis Ritel 3</option>
+              <option value="XII RPL 1">XII RPL 1</option>
+              <option value="XII RPL 2">XII RPL 2</option>
+              <option value="XII AKL 1">XII AKL 1</option>
+              <option value="XII OTKP 1">XII OTKP 1</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Field Identifier (NISN untuk Siswa, Username Admin untuk Guru) -->
         <div>
-          <label id="label-identifier" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+          <label id="label-identifier" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
             Nomor Induk Siswa Nasional (NISN)
           </label>
           <div class="relative">
             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <i id="icon-identifier" data-lucide="id-card" class="w-5 h-5"></i>
+              <i id="icon-identifier" data-lucide="id-card" class="w-4 h-4"></i>
             </span>
-            <input type="text" id="input-identifier" required placeholder="Contoh: 0067829102"
-              class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition" />
+            <input type="text" id="input-identifier" placeholder="Masukkan NISN Siswa" value=""
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition" />
           </div>
         </div>
 
         <!-- Field Password / Token -->
         <div>
-          <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center justify-between mb-1.5">
             <label id="label-password" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Token Ujian / Password
+              Token Ujian
             </label>
-            <span class="text-[11px] text-blue-600 font-medium">Token sesi: <strong class="font-mono">SEJ-2026</strong></span>
           </div>
           <div class="relative">
             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <i data-lucide="key" class="w-5 h-5"></i>
+              <i id="icon-password" data-lucide="key" class="w-4 h-4"></i>
             </span>
-            <input type="password" id="input-password" required placeholder="Masukkan password/token"
-              class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition" />
+            <input type="password" id="input-password" placeholder="Masukkan Token Ujian Aktif" value=""
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition" />
           </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full py-3 px-4 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl shadow-lg shadow-blue-700/30 flex items-center justify-center space-x-2 transition active:scale-[0.98]">
-          <span>Masuk ke Ruang Ujian</span>
+        <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-extrabold rounded-xl shadow-lg shadow-blue-700/30 flex items-center justify-center space-x-2 transition active:scale-[0.98] cursor-pointer mt-2 text-xs sm:text-sm">
+          <span id="btn-submit-label">Masuk ke Ruang Ujian</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </button>
       </form>
 
-      <!-- Quick Demo Info -->
-      <div class="mt-6 pt-5 border-t border-slate-100 text-center">
-        <p class="text-xs text-slate-500">
-          Untuk simulasi langsung: <br>
-          Siswa: <span class="font-semibold text-slate-700">NISN Bebas</span> | Guru: klik tab <span class="font-semibold text-blue-700">Admin/Guru</span>
+      <!-- Quick Info / Help -->
+      <div class="mt-5 pt-4 border-t border-slate-100 text-center">
+        <p id="demo-login-info" class="text-[11px] text-slate-500 leading-relaxed">
+          Siswa: Masukkan Nama Lengkap, Kelas, & Token Ujian. <br>
+          Admin Guru: Silakan klik tab <span class="font-bold text-blue-700">Admin / Guru</span>.
         </p>
       </div>
     </div>
@@ -108,24 +144,61 @@
       currentRole = role;
       const tabStudent = document.getElementById('tab-student');
       const tabTeacher = document.getElementById('tab-teacher');
+      const wrapperStudentName = document.getElementById('wrapper-student-name');
+      const inputStudentName = document.getElementById('input-student-name');
+      const wrapperStudentClass = document.getElementById('wrapper-student-class');
       const labelIdentifier = document.getElementById('label-identifier');
       const inputIdentifier = document.getElementById('input-identifier');
+      const iconIdentifier = document.getElementById('icon-identifier');
       const labelPassword = document.getElementById('label-password');
+      const inputPassword = document.getElementById('input-password');
+      const iconPassword = document.getElementById('icon-password');
+      const btnSubmitLabel = document.getElementById('btn-submit-label');
+      const demoInfo = document.getElementById('demo-login-info');
 
       if (role === 'student') {
-        tabStudent.className = "flex-1 py-3.5 text-center text-blue-700 border-b-2 border-blue-700 bg-white transition";
-        tabTeacher.className = "flex-1 py-3.5 text-center text-slate-500 hover:text-slate-700 bg-slate-50 transition";
+        tabStudent.className = "flex-1 py-3.5 text-center text-blue-700 border-b-2 border-blue-700 bg-white transition cursor-pointer font-extrabold";
+        tabTeacher.className = "flex-1 py-3.5 text-center text-slate-500 hover:text-slate-700 bg-slate-50 transition cursor-pointer font-bold";
+        
+        wrapperStudentName.classList.remove('hidden');
+        inputStudentName.value = "";
+        inputStudentName.placeholder = "Masukkan Nama Lengkap Anda";
+        
+        wrapperStudentClass.classList.remove('hidden');
+        
         labelIdentifier.innerText = "Nomor Induk Siswa Nasional (NISN)";
-        inputIdentifier.placeholder = "Contoh: 0067829102";
-        inputIdentifier.value = "0067829102";
-        document.getElementById('input-password').value = "SEJ-2026";
+        inputIdentifier.placeholder = "Masukkan NISN Siswa (opsional)";
+        inputIdentifier.value = "";
+        
+        labelPassword.innerText = "Token Ujian";
+        inputPassword.type = "text";
+        inputPassword.placeholder = "Masukkan Token Ujian Aktif";
+        inputPassword.value = "";
+        
+        btnSubmitLabel.innerText = "Masuk ke Ruang Ujian";
+        if (demoInfo) {
+          demoInfo.innerHTML = `Siswa: Masukkan Nama Lengkap & Token Ujian dari Pengawas.`;
+        }
       } else {
-        tabTeacher.className = "flex-1 py-3.5 text-center text-blue-700 border-b-2 border-blue-700 bg-white transition";
-        tabStudent.className = "flex-1 py-3.5 text-center text-slate-500 hover:text-slate-700 bg-slate-50 transition";
-        labelIdentifier.innerText = "NIP / Akun Guru (Yoga Rahmanda, S.Pd)";
-        inputIdentifier.placeholder = "Contoh: 198507122010011005";
-        inputIdentifier.value = "guru.sejarah@smkpgri11.sch.id";
-        document.getElementById('input-password').value = "admin123";
+        tabTeacher.className = "flex-1 py-3.5 text-center text-blue-700 border-b-2 border-blue-700 bg-white transition cursor-pointer font-extrabold";
+        tabStudent.className = "flex-1 py-3.5 text-center text-slate-500 hover:text-slate-700 bg-slate-50 transition cursor-pointer font-bold";
+        
+        wrapperStudentName.classList.add('hidden');
+        wrapperStudentClass.classList.add('hidden');
+        
+        labelIdentifier.innerText = "Username Admin";
+        inputIdentifier.placeholder = "Masukkan Username Admin";
+        inputIdentifier.value = ""; // Default KOSONG
+        
+        labelPassword.innerText = "Password Admin";
+        inputPassword.type = "password";
+        inputPassword.placeholder = "Masukkan Password Admin";
+        inputPassword.value = ""; // Default KOSONG
+        
+        btnSubmitLabel.innerText = "Masuk ke Panel Admin";
+        if (demoInfo) {
+          demoInfo.innerHTML = `Kredensial Admin Resmi: <br><span class="inline-block bg-blue-50 text-blue-800 font-mono text-[11px] px-2.5 py-1 rounded-lg border border-blue-200 mt-1">Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>qwerty48</strong></span>`;
+        }
       }
       lucide.createIcons();
     }
@@ -133,19 +206,47 @@
     function handleLogin(e) {
       e.preventDefault();
       const identifier = document.getElementById('input-identifier').value.trim();
+      const password = document.getElementById('input-password').value.trim();
       
       if (currentRole === 'student') {
-        localStorage.setItem('cbt_student_nisn', identifier || '0067829102');
-        localStorage.setItem('cbt_student_name', 'Ahmad Fauzi');
-        localStorage.setItem('cbt_student_class', 'XII RPL 1');
+        const studentName = document.getElementById('input-student-name').value.trim();
+        const studentClass = document.getElementById('input-student-class').value;
+
+        if (!studentName) {
+          alert("Silakan masukkan Nama Lengkap Siswa terlebih dahulu.");
+          document.getElementById('input-student-name').focus();
+          return;
+        }
+
+        const activeToken = (localStorage.getItem('cbt_active_token') || 'SEJ-2026').trim().toUpperCase();
+        if (password && password.toUpperCase() !== activeToken && password.toUpperCase() !== 'SEJ-2026') {
+          // Warning token jika tidak sesuai
+          if (!confirm(`Token yang dimasukkan ("${password}") mungkin berbeda dengan token aktif saat ini.\n\nTetap lanjutkan masuk ke modul ujian?`)) {
+            return;
+          }
+        }
+
+        localStorage.setItem('cbt_student_nisn', identifier || ('00' + Math.floor(10000000 + Math.random() * 90000000)));
+        localStorage.setItem('cbt_student_name', studentName);
+        localStorage.setItem('cbt_student_class', studentClass);
+        localStorage.setItem('cbt_auth_role', 'student');
         window.location.href = 'index.html';
       } else {
-        localStorage.setItem('cbt_teacher_auth', 'true');
-        window.location.href = 'admin.html';
+        // Validasi Kredensial Login Admin: HANYA username 'admin' dan password 'qwerty48'
+        const isValidAdmin = (identifier.toLowerCase() === 'admin') && (password === 'qwerty48');
+
+        if (isValidAdmin) {
+          localStorage.setItem('cbt_teacher_auth', 'true');
+          localStorage.setItem('cbt_auth_role', 'teacher');
+          window.location.href = 'admin.html';
+        } else {
+          alert("Login Admin Gagal!\n\nUsername atau Password Admin salah.\nUsername Admin: admin\nPassword Admin: qwerty48");
+          document.getElementById('input-password').focus();
+        }
       }
     }
 
-    // Auto-fill default test data
+    // Inisialisasi awal role student dengan form kosong
     setRole('student');
   </script>
 </body>

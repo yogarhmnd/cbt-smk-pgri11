@@ -1,0 +1,1353 @@
+[
+  {
+    "id": 1,
+    "bab": "BAB 1",
+    "type": "mcq",
+    "text": "Tujuan pokok pemerintah pendudukan militer Jepang membentuk organisasi Pembela Tanah Air (PETA) pada tahun 1943 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mempersiapkan kemerdekaan bangsa Indonesia secara mandiri dan bertahap"
+      },
+      {
+        "key": "B",
+        "text": "Mendapatkan bantuan tentara pribumi guna mempertahankan kepulauan Indonesia dari serangan tentara Sekutu"
+      },
+      {
+        "key": "C",
+        "text": "Membubarkan seluruh organisasi kepemudaan yang beraliran nasionalis dan keagamaan"
+      },
+      {
+        "key": "D",
+        "text": "Menggantikan posisi tentara KNIL Belanda dalam birokrasi pemerintahan sipil daerah"
+      },
+      {
+        "key": "E",
+        "text": "Menyerang pangkalan militer Sekutu yang berada di wilayah Pasifik Barat"
+      }
+    ],
+    "correct": "B",
+    "points": 2
+  },
+  {
+    "id": 2,
+    "bab": "BAB 1",
+    "type": "mcq",
+    "text": "Salah satu dampak sosial-ekonomi paling memilukan yang dialami rakyat Indonesia pada masa pendudukan Jepang akibat pengerahan tenaga kerja paksa adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Diterapkannya sistem sewa tanah (Landrent System) di seluruh perkebunan swasta"
+      },
+      {
+        "key": "B",
+        "text": "Kewajiban Romusha yang mengakibatkan kelaparan massal, kemiskinan ekstrem, dan tingginya angka mortalitas rakyat"
+      },
+      {
+        "key": "C",
+        "text": "Pelaksanaan kebijakan tanam paksa (Cultuurstelsel) khusus tanaman tebu dan tembakau"
+      },
+      {
+        "key": "D",
+        "text": "Dihapuskannya mata uang gulden dan diganti langsung dengan mata uang Poundsterling Inggris"
+      },
+      {
+        "key": "E",
+        "text": "Kewajiban penyerahan rempah-rempah kepada serikat dagang VOC"
+      }
+    ],
+    "correct": "B",
+    "points": 2
+  },
+  {
+    "id": 3,
+    "bab": "BAB 1",
+    "type": "mcq",
+    "text": "Kebijakan Seikerei yang diwajibkan oleh tentara pendudukan Jepang dan memicu perlawanan rakyat di Singaparna Tasikmalaya dipimpin KH Zaenal Mustafa adalah kewajiban untuk...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Menyerahkan seluruh hasil panen padi kepada Koperasi Pertanian Kumiai"
+      },
+      {
+        "key": "B",
+        "text": "Membungkuk 90 derajat ke arah matahari terbit (Tokyo) sebagai wujud penghormatan kepada Kaisar Tenno Heika"
+      },
+      {
+        "key": "C",
+        "text": "Menggunakan bahasa Jepang sebagai satu-satunya bahasa percakapan sehari-hari"
+      },
+      {
+        "key": "D",
+        "text": "Mengikuti wajib militer bagi seluruh pemuda usia di atas 15 tahun tanpa terkecuali"
+      },
+      {
+        "key": "E",
+        "text": "Menyanyikan lagu kebangsaan Kimigayo pada setiap awal ibadah keagamaan"
+      }
+    ],
+    "correct": "B",
+    "points": 2
+  },
+  {
+    "id": 4,
+    "bab": "BAB 1",
+    "type": "mcq",
+    "text": "Organisasi semi-militer bentukan Jepang yang beranggotakan para pemuda berusia 14 hingga 22 tahun dengan tujuan mempersiapkan pertahanan baris belakang adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Seinendan (Barisan Pemuda)"
+      },
+      {
+        "key": "B",
+        "text": "Keibodan (Barisan Pembantu Polisi)"
+      },
+      {
+        "key": "C",
+        "text": "Fujinkai (Barisan Wanita)"
+      },
+      {
+        "key": "D",
+        "text": "Heiho (Barisan Pembantu Prajurit Militer)"
+      },
+      {
+        "key": "E",
+        "text": "Gakukotai (Laskar Pelajar)"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 5,
+    "bab": "BAB 1",
+    "type": "mcq",
+    "text": "Janji Koiso yang diumumkan oleh Perdana Menteri Kuniaki Koiso pada 7 September 1944 bertujuan politis untuk...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Menarik simpati dan dukungan rakyat Indonesia agar bersedia membantu Jepang dalam Perang Pasifik"
+      },
+      {
+        "key": "B",
+        "text": "Membubarkan badan persiapan kemerdekaan BPUPKI secara sepihak"
+      },
+      {
+        "key": "C",
+        "text": "Menyerahkan kekuasaan Hindia Belanda kepada Sekutu secara damai"
+      },
+      {
+        "key": "D",
+        "text": "Membentuk uni persemakmuran antara Indonesia dan Kekaisaran Jepang"
+      },
+      {
+        "key": "E",
+        "text": "Menghapuskan sistem mata uang militer Jepang (Gunpyo) di Indonesia"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 6,
+    "bab": "BAB 1",
+    "type": "mcq",
+    "text": "Kebijakan autarki ekonomi yang diberlakukan oleh pemerintah militer Jepang di Indonesia mewajibkan setiap daerah untuk...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Memenuhi kebutuhan pangan dan logistik perang secara mandiri tanpa bergantung pada daerah lain"
+      },
+      {
+        "key": "B",
+        "text": "Menjual seluruh hasil komoditas tambang kepada pedagang swasta Eropa"
+      },
+      {
+        "key": "C",
+        "text": "Mengimpor beras dan gandum dari wilayah pendudukan di Burma dan Filipina"
+      },
+      {
+        "key": "D",
+        "text": "Membuka pasar bebas bagi produk manufaktur buatan Amerika Serikat"
+      },
+      {
+        "key": "E",
+        "text": "Menghentikan seluruh aktivitas perikanan dan pertanian rakyat di pesisir"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 7,
+    "bab": "BAB 1",
+    "type": "short_essay",
+    "text": "Sebutkan nama tokoh perwira PETA berpangkat Shodancho yang memimpin pemberontakan bersenjata melawan tentara Jepang di Blitar pada 14 Februari 1945!",
+    "aiKeywords": [
+      "Supriyadi",
+      "Shodancho Supriyadi",
+      "Soeprijadi"
+    ],
+    "rubric": "Menyebutkan tokoh Shodancho Supriyadi dengan tepat.",
+    "points": 2
+  },
+  {
+    "id": 8,
+    "bab": "BAB 1",
+    "type": "essay",
+    "text": "Analislah bagaimana para tokoh pergerakan nasional (seperti Sukarno dan Moh. Hatta) memanfaatkan taktik kooperasi melalui organisasi bentukan Jepang (seperti Putera dan Jawa Hokokai) demi mempersiapkan kemerdekaan Indonesia!",
+    "aiKeywords": [
+      "taktik kooperasi",
+      "Putera",
+      "Jawa Hokokai",
+      "Sukarno",
+      "Hatta",
+      "menanamkan nasionalisme",
+      "BPUPKI",
+      "rapat akbar",
+      "cikal bakal TNI"
+    ],
+    "rubric": "Menjelaskan pemanfaatan fasilitas podium rapat akbar dan media cetak Jepang untuk menyebarkan paham kebangsaan serta menyusun fondasi konstitusi melalui BPUPKI.",
+    "points": 4
+  },
+  {
+    "id": 9,
+    "bab": "BAB 2",
+    "type": "mcq",
+    "text": "Faktor krusial yang memicu terjadinya kekosongan kekuasaan (vacuum of power) di Indonesia pada pertengahan Agustus 1945 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jepang menyerah tanpa syarat kepada Sekutu setelah peristiwa bom atom Hiroshima dan Nagasaki"
+      },
+      {
+        "key": "B",
+        "text": "Pasukan Sekutu telah mendarat serentak di seluruh pelabuhan utama pulau Jawa"
+      },
+      {
+        "key": "C",
+        "text": "Pemerintah kolonial Belanda menyatakan pembatalan klaim atas wilayah Hindia Belanda"
+      },
+      {
+        "key": "D",
+        "text": "Seluruh pimpinan militer Jepang di Batavia melarikan diri ke Australia"
+      },
+      {
+        "key": "E",
+        "text": "Terjadinya gencatan senjata antara Uni Soviet dan Kekaisaran Jepang di Manchuria"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 10,
+    "bab": "BAB 2",
+    "type": "mcq",
+    "text": "Peristiwa Rengasdengklok pada tanggal 16 Agustus 1945 didorong oleh perbedaan pandangan mendasar antara golongan muda dan golongan tua mengenai...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Waktu dan mekanisme proklamasi yang harus dilakukan murni kekuatan sendiri tanpa campur tangan dan izin PPKI/Jepang"
+      },
+      {
+        "key": "B",
+        "text": "Penentuan calon menteri kabinet pertama Republik Indonesia"
+      },
+      {
+        "key": "C",
+        "text": "Lokasi pembacaan naskah proklamasi kemerdekaan antara Lapangan Ikada atau Pegangsaan Timur"
+      },
+      {
+        "key": "D",
+        "text": "Pemilihan bahasa asing yang akan digunakan dalam siaran radio naskah proklamasi"
+      },
+      {
+        "key": "E",
+        "text": "Perdebatan lambang Garuda Pancasila dan bentuk negara federasi"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 11,
+    "bab": "BAB 2",
+    "type": "mcq",
+    "text": "Alasan dipilihnya kediaman Laksamana Tadashi Maeda di Jalan Imam Bonjol No. 1 Jakarta sebagai lokasi perumusan teks Proklamasi adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Memiliki hak imunitas ekstra-teritorial perwira Angkatan Laut (Kaigun) yang aman dari intervensi Angkatan Darat Jepang (Rikugun)"
+      },
+      {
+        "key": "B",
+        "text": "Merupakan markas utama barisan pemuda laskar pejuang Menteng 31"
+      },
+      {
+        "key": "C",
+        "text": "Berdekatan langsung dengan stasiun pemancar radio pusat Hoso Kanrikyoku"
+      },
+      {
+        "key": "D",
+        "text": "Telah mendapatkan izin tertulis resmi dari Panglima Tertinggi Tentara Sekutu di Asia Tenggara"
+      },
+      {
+        "key": "E",
+        "text": "Menjadi kantor resmi Badan Penyelidik Usaha-Usaha Persiapan Kemerdekaan (BPUPKI)"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 12,
+    "bab": "BAB 2",
+    "type": "mcq",
+    "text": "Hasil keputusan fundamental dalam Sidang Pertama PPKI pada tanggal 18 Agustus 1945 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mengesahkan UUD 1945 serta menetapkan Ir. Soekarno sebagai Presiden dan Drs. Moh. Hatta sebagai Wakil Presiden"
+      },
+      {
+        "key": "B",
+        "text": "Membagi wilayah Indonesia menjadi 8 provinsi dan menunjuk para gubernurnya"
+      },
+      {
+        "key": "C",
+        "text": "Membentuk Badan Keamanan Rakyat (BKR) sebagai angkatan bersenjata resmi negara"
+      },
+      {
+        "key": "D",
+        "text": "Membentuk 12 kementerian departemen pemerintahan kabinet pertama"
+      },
+      {
+        "key": "E",
+        "text": "Menetapkan mata uang resmi Oeang Republik Indonesia (ORI) menggantikan rupiah Jepang"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 13,
+    "bab": "BAB 2",
+    "type": "mcq",
+    "text": "Tokoh pemuda yang mengusulkan agar naskah Proklamasi Kemerdekaan ditandatangani oleh Sukarno dan Moh. Hatta atas nama bangsa Indonesia adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sukarni Kartodiwirjo"
+      },
+      {
+        "key": "B",
+        "text": "Sayuti Melik"
+      },
+      {
+        "key": "C",
+        "text": "Wikana"
+      },
+      {
+        "key": "D",
+        "text": "Chairul Saleh"
+      },
+      {
+        "key": "E",
+        "text": "BM Diah"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 14,
+    "bab": "BAB 2",
+    "type": "mcq",
+    "text": "Peran wartawan BM Diah setelah pembacaan teks Proklamasi 17 Agustus 1945 sangat penting karena bertugas...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Menyebarluaskan berita proklamasi kemerdekaan melalui percetakan selebaran pamflet dan surat kabar ke seluruh pelosok"
+      },
+      {
+        "key": "B",
+        "text": "Mengetik naskah proklamasi yang telah disetujui para tokoh bangsa"
+      },
+      {
+        "key": "C",
+        "text": "Mengamankan bendera merah putih dari sitaan tentara Jepang"
+      },
+      {
+        "key": "D",
+        "text": "Menjaga keamanan fisik Bung Karno di kediaman Pegangsaan Timur"
+      },
+      {
+        "key": "E",
+        "text": "Menjadi penerjemah teks kemerdekaan ke dalam bahasa Inggris di radio Sekutu"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 15,
+    "bab": "BAB 2",
+    "type": "short_essay",
+    "text": "Sebutkan nama tokoh yang mengetik naskah otentik Proklamasi Kemerdekaan Indonesia dan mengubah kata 'tempoh' menjadi 'tempo'!",
+    "aiKeywords": [
+      "Sayuti Melik",
+      "Mohamad Ibnu Sayuti",
+      "Ibnu Sayuti"
+    ],
+    "rubric": "Menyebutkan nama Sayuti Melik dengan tepat.",
+    "points": 2
+  },
+  {
+    "id": 16,
+    "bab": "BAB 2",
+    "type": "essay",
+    "text": "Uraikan makna kalimat pertama teks Proklamasi: 'Kami bangsa Indonesia dengan ini menyatakan kemerdekaan Indonesia' ditinjau dari aspek kedaulatan de facto dan pemutusan ikatan kolonialisme!",
+    "aiKeywords": [
+      "pernyataan kemerdekaan",
+      "kedaulatan de facto",
+      "pemutusan ikatan kolonial",
+      "kehendak bebas rakyat",
+      "hukum internasional",
+      "proklamasi kemerdekaan"
+    ],
+    "rubric": "Menjelaskan bahwa proklamasi merupakan deklarasi kedaulatan mutlak lahirnya negara baru yang berdiri sejajar dengan bangsa merdeka lain di dunia.",
+    "points": 4
+  },
+  {
+    "id": 17,
+    "bab": "BAB 3",
+    "type": "mcq",
+    "text": "Penyebab utama meletusnya pertempuran dahsyat 10 November 1945 di Surabaya antara pemuda Arek Suroboyo melawan tentara Sekutu (Inggris) adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tewasnya Brigadir Jenderal A.W.S. Mallaby dan penolakan terhadap ultimatum Sekutu agar rakyat Surabaya menyerahkan senjata"
+      },
+      {
+        "key": "B",
+        "text": "Penyerahan pangkalan armada laut Ujung Surabaya kepada pihak NICA Belanda"
+      },
+      {
+        "key": "C",
+        "text": "Penolakan penetapan garis demarkasi van Mook oleh pejuang Jawa Timur"
+      },
+      {
+        "key": "D",
+        "text": "Penangkapan Gubernur Suryo oleh tentara Gurkha Sekutu"
+      },
+      {
+        "key": "E",
+        "text": "Pengibaran bendera Uni Soviet di atas Hotel Yamato Surabaya"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 18,
+    "bab": "BAB 3",
+    "type": "mcq",
+    "text": "Doktrin militer 'bumi hangus' yang dilakukan para pejuang dalam peristiwa Bandung Lautan Api 24 Maret 1946 bertujuan taktis untuk...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mencegah tentara Sekutu dan NICA memanfaatkan sarana infrastruktur kota Bandung sebagai markas militer strategis"
+      },
+      {
+        "key": "B",
+        "text": "Mengalihkan perhatian pasukan Sekutu dari wilayah Yogyakarta ke Jawa Barat"
+      },
+      {
+        "key": "C",
+        "text": "Menghancurkan seluruh gudang senjata tentara Jepang yang berada di pedalaman"
+      },
+      {
+        "key": "D",
+        "text": "Mematuhi instruksi gencatan senjata tanpa syarat dari pemerintah pusat RIS"
+      },
+      {
+        "key": "E",
+        "text": "Mempercepat evakuasi pejabat kementerian menuju wilayah Cirebon"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 19,
+    "bab": "BAB 3",
+    "type": "mcq",
+    "text": "Hasil kesepakatan Perundingan Linggarjati tahun 1947 menyatakan bahwa Belanda hanya mengakui wilayah kekuasaan de facto RI meliputi...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jawa, Sumatera, dan Madura"
+      },
+      {
+        "key": "B",
+        "text": "Seluruh wilayah bekas Hindia Belanda dari Sabang sampai Merauke"
+      },
+      {
+        "key": "C",
+        "text": "Jawa, Bali, dan Nusa Tenggara Barat"
+      },
+      {
+        "key": "D",
+        "text": "Sumatera, Kalimantan, dan Sulawesi"
+      },
+      {
+        "key": "E",
+        "text": "Wilayah Republik Indonesia Serikat (RIS) bagian timur semata"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 20,
+    "bab": "BAB 3",
+    "type": "mcq",
+    "text": "Dampak politis internasional paling krusial dari keberhasilan 'Serangan Umum 1 Maret 1949' di Yogyakarta adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Membuktikan kepada dunia internasional dan Dewan Keamanan PBB bahwa TNI dan eksistensi RI masih tegak berdaulat"
+      },
+      {
+        "key": "B",
+        "text": "Memukul mundur seluruh divisi militer Belanda dari kepulauan Nusantara secara permanen"
+      },
+      {
+        "key": "C",
+        "text": "Membebaskan Presiden Sukarno dan Moh. Hatta dari pengasingan di Pulau Bangka seketika itu juga"
+      },
+      {
+        "key": "D",
+        "text": "Mendapatkan kiriman armada pesawat tempur dari negara anggota Dewan Keamanan PBB"
+      },
+      {
+        "key": "E",
+        "text": "Membubarkan Pemerintahan Darurat Republik Indonesia (PDRI) di Bukittinggi"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 21,
+    "bab": "BAB 3",
+    "type": "mcq",
+    "text": "Peran Mr. Sjafruddin Prawiranegara dalam dinamika mempertahankan kemerdekaan saat Agresi Militer Belanda II adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Memimpin Pemerintahan Darurat Republik Indonesia (PDRI) di Sumatera Barat guna menjaga kelangsungan kedaulatan negara"
+      },
+      {
+        "key": "B",
+        "text": "Menjadi ketua delegasi Indonesia dalam Konferensi Meja Bundar di Den Haag"
+      },
+      {
+        "key": "C",
+        "text": "Memimpin perang gerilya bersama Jenderal Sudirman di hutan rimba Jawa Tengah"
+      },
+      {
+        "key": "D",
+        "text": "Mendirikan Komisi Tiga Negara (KTN) bersama wakil dari Australia dan Belgia"
+      },
+      {
+        "key": "E",
+        "text": "Menandatangani Perjanjian Roem-Royen di Jakarta"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 22,
+    "bab": "BAB 3",
+    "type": "mcq",
+    "text": "Salah satu keputusan fundamental Konferensi Meja Bundar (KMB) di Den Haag Belanda tahun 1949 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belanda menyerahkan dan mengakui kedaulatan penuh kepada Republik Indonesia Serikat (RIS)"
+      },
+      {
+        "key": "B",
+        "text": "Penyerahan langsung wilayah Irian Barat dalam tempo 24 jam tanpa perundingan lanjutan"
+      },
+      {
+        "key": "C",
+        "text": "Penggabungan seluruh tentara KNIL ke dalam kesatuan militer Kerajaan Belanda di Eropa"
+      },
+      {
+        "key": "D",
+        "text": "Penghapusan seluruh beban utang Hindia Belanda sejak tahun 1942"
+      },
+      {
+        "key": "E",
+        "text": "Pembentukan negara persemakmuran di bawah pimpinan Presiden Amerika Serikat"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 23,
+    "bab": "BAB 3",
+    "type": "short_essay",
+    "text": "Sebutkan nama tokoh pejuang yang mengobarkan semangat perlawanan rakyat Surabaya lewat orasi Radio Pemberontakan pada peristiwa 10 November 1945!",
+    "aiKeywords": [
+      "Bung Tomo",
+      "Sutomo"
+    ],
+    "rubric": "Menyebutkan nama Bung Tomo (Sutomo) dengan tepat.",
+    "points": 2
+  },
+  {
+    "id": 24,
+    "bab": "BAB 3",
+    "type": "essay",
+    "text": "Bandingkan efektivitas strategi diplomasi perundingan (Linggarjati, Renville, KMB) dengan strategi perjuangan bersenjata dalam upaya mempertahankan kemerdekaan Indonesia kurun waktu 1945-1949!",
+    "aiKeywords": [
+      "perjuangan diplomasi",
+      "perjuangan bersenjata",
+      "saling melengkapi",
+      "simpati internasional",
+      "Dewan Keamanan PBB",
+      "pengakuan de jure",
+      "TNI"
+    ],
+    "rubric": "Menjelaskan sinergi saling melengkapi di mana perjuangan bersenjata membuktikan kekuatan de facto, sedangkan jalur diplomasi mengamankan pengakuan de jure dunia internasional.",
+    "points": 4
+  },
+  {
+    "id": 25,
+    "bab": "BAB 4",
+    "type": "mcq",
+    "text": "Ciri utama sistem pemerintahan pada masa Demokrasi Parlementer / Liberal (1950–1959) di bawah landasan UUDS 1950 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pemerintahan dipimpin oleh seorang Perdana Menteri yang bertanggung jawab kepada parlemen (DPR)"
+      },
+      {
+        "key": "B",
+        "text": "Presiden memegang kekuasaan eksekutif absolut tanpa pengawasan parlemen"
+      },
+      {
+        "key": "C",
+        "text": "Sistem satu partai tunggal yang mengendalikan seluruh kebijakan daerah"
+      },
+      {
+        "key": "D",
+        "text": "Menteri diangkat dan hanya bertanggung jawab langsung kepada Presiden"
+      },
+      {
+        "key": "E",
+        "text": "Anggota parlemen ditunjuk langsung oleh Mahkamah Agung"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 26,
+    "bab": "BAB 4",
+    "type": "mcq",
+    "text": "Kabinet pertama yang memerintah pada masa Demokrasi Liberal di Indonesia dan berlandaskan koalisi Masyumi-PNI adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kabinet Natsir"
+      },
+      {
+        "key": "B",
+        "text": "Kabinet Sukiman"
+      },
+      {
+        "key": "C",
+        "text": "Kabinet Wilopo"
+      },
+      {
+        "key": "D",
+        "text": "Kabinet Ali Sastroamidjojo I"
+      },
+      {
+        "key": "E",
+        "text": "Kabinet Burhanuddin Harahap"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 27,
+    "bab": "BAB 4",
+    "type": "mcq",
+    "text": "Prestasi diplomasi internasional terbesar bangsa Indonesia pada masa Kabinet Ali Sastroamidjojo I tahun 1955 adalah penyelenggaraan...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Konferensi Asia Afrika (KAA) di Bandung yang melahirkan Dasasila Bandung"
+      },
+      {
+        "key": "B",
+        "text": "Pesta Olahraga Games of the New Emerging Forces (GANEFO)"
+      },
+      {
+        "key": "C",
+        "text": "Konferensi Tingkat Tinggi (KTT) Non-Blok pertama di Beograd"
+      },
+      {
+        "key": "D",
+        "text": "Pembentukan sekretariat bersama ASEAN di Jakarta"
+      },
+      {
+        "key": "E",
+        "text": "Perjanjian bantuan ekonomi Mutual Security Act dengan Amerika Serikat"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 28,
+    "bab": "BAB 4",
+    "type": "mcq",
+    "text": "Faktor determinan yang melatarbelakangi Presiden Sukarno mengeluarkan Dekrit Presiden 5 Juli 1959 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kegagalan Badan Konstituante menetapkan UUD baru pengganti UUDS 1950 yang memicu ancaman disintegrasi bangsa"
+      },
+      {
+        "key": "B",
+        "text": "Terjadinya agresi militer asing di kepulauan Maluku"
+      },
+      {
+        "key": "C",
+        "text": "Pemutusan sepihak hubungan bilateral diplomatik dengan Uni Soviet"
+      },
+      {
+        "key": "D",
+        "text": "Tuntutan pembubaran parlemen oleh serikat buruh migran"
+      },
+      {
+        "key": "E",
+        "text": "Kekalahan telak partai nasionalis dalam pemilihan umum legislatif"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 29,
+    "bab": "BAB 4",
+    "type": "mcq",
+    "text": "Pemilu demokratis pertama dalam sejarah Indonesia pada tahun 1955 dilaksanakan dalam dua tahap, yaitu untuk memilih...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Anggota DPR (Parlemen) pada tahap I dan Anggota Dewan Konstituante pada tahap II"
+      },
+      {
+        "key": "B",
+        "text": "Presiden pada tahap I dan Wakil Presiden pada tahap II"
+      },
+      {
+        "key": "C",
+        "text": "Gubernur provinsi pada tahap I dan Bupati pada tahap II"
+      },
+      {
+        "key": "D",
+        "text": "Menteri kabinet pada tahap I dan Panglima militer pada tahap II"
+      },
+      {
+        "key": "E",
+        "text": "Anggota Mahkamah Agung pada tahap I dan Jaksa Agung pada tahap II"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 30,
+    "bab": "BAB 4",
+    "type": "mcq",
+    "text": "Konsep ideologi politik 'Nasakom' yang diperkenalkan Presiden Sukarno pada era Demokrasi Terpimpin menggabungkan tiga pilar kekuatan, yaitu...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nasionalisme, Agama, dan Komunisme"
+      },
+      {
+        "key": "B",
+        "text": "Nasionalisme, Agraria, dan Koperasi"
+      },
+      {
+        "key": "C",
+        "text": "Negara, Angkatan Perang, dan Komando"
+      },
+      {
+        "key": "D",
+        "text": "Nusantara, Adat, dan Kemaritiman"
+      },
+      {
+        "key": "E",
+        "text": "Nasionalis, Sosialis, dan Demokratis"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 31,
+    "bab": "BAB 4",
+    "type": "short_essay",
+    "text": "Sebutkan nama deklarasi wilayah maritim Indonesia yang dicetuskan pada 13 Desember 1957 yang menetapkan batas laut teritorial 12 mil laut diukur dari garis pantai pulau terluar!",
+    "aiKeywords": [
+      "Deklarasi Djuanda",
+      "Djuanda",
+      "Ir. Djuanda",
+      "Deklarasi Juanda"
+    ],
+    "rubric": "Menyebutkan Deklarasi Djuanda dengan tepat.",
+    "points": 2
+  },
+  {
+    "id": 32,
+    "bab": "BAB 4",
+    "type": "essay",
+    "text": "Analislah penyebab instabilitas politik dan seringnya pergantian kabinet pada masa Demokrasi Liberal (1950-1959) serta dampaknya terhadap keberlanjutan program pembangunan ekonomi nasional!",
+    "aiKeywords": [
+      "sistem multipartai",
+      "mosi tidak percaya",
+      "parlemen rapuh",
+      "kabinet jatuh bangun",
+      "kepentingan golongan",
+      "program pembangunan terhambat",
+      "UUDS 1950"
+    ],
+    "rubric": "Menguraikan sistem multipartai di mana partai oposisi kerap melayangkan mosi tidak percaya sehingga umur kabinet sangat pendek (rata-rata 1 tahun) dan program jangka panjang terbengkalai.",
+    "points": 4
+  },
+  {
+    "id": 33,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Dokumen bersejarah yang dikeluarkan pada 11 Maret 1966 dan menjadi landasan legal peralihan kekuasaan dari Orde Lama ke Orde Baru dikenal sebagai...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Surat Perintah Sebelas Maret (Supersemar)"
+      },
+      {
+        "key": "B",
+        "text": "Dekrit Presiden 11 Maret"
+      },
+      {
+        "key": "C",
+        "text": "Maklumat Pemerintah No. X"
+      },
+      {
+        "key": "D",
+        "text": "Piagam Jakarta 1966"
+      },
+      {
+        "key": "E",
+        "text": "Manifesto Politik Republik Indonesia"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 34,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Pilar utama pembangunan ekonomi pada era Orde Baru yang dirumuskan dalam doktrin 'Trilogi Pembangunan' bertumpu pada...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Stabilitas nasional yang dinamis, pertumbuhan ekonomi tinggi, dan pemerataan pembangunan beserta hasilnya"
+      },
+      {
+        "key": "B",
+        "text": "Nasionalisasi seluruh aset korporasi asing dan swastanisasi bank pemerintah"
+      },
+      {
+        "key": "C",
+        "text": "Penghapusan utang luar negeri secara sepihak dan swasembada industri berat"
+      },
+      {
+        "key": "D",
+        "text": "Pemberian hak veto mutlak kepada partai oposisi di parlemen"
+      },
+      {
+        "key": "E",
+        "text": "Pemberantasan monopoli perdagangan dan penutupan penanaman modal asing"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 35,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Prioritas utama program Rencana Pembangunan Lima Tahun (Repelita I) yang dimulai pada tahun 1969 difokuskan pada pemulihan sektor...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pertanian, pemenuhan pangan, sandang, dan perbaikan infrastruktur jalan"
+      },
+      {
+        "key": "B",
+        "text": "Industri perakitan otomotif dan penerbangan antariksa"
+      },
+      {
+        "key": "C",
+        "text": "Pengembangan teknologi komputer dan kecerdasan buatan"
+      },
+      {
+        "key": "D",
+        "text": "Eksplorasi nuklir dan persenjataan pertahanan berat"
+      },
+      {
+        "key": "E",
+        "text": "Sektor perbankan syariah dan bursa efek internasional"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 36,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Prestasi monumental sektor agraris Indonesia pada masa Orde Baru yang mendapatkan apresiasi penghargaan internasional dari FAO (PBB) pada tahun 1984 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pencapaian Swasembada Beras / Pangan Nasional"
+      },
+      {
+        "key": "B",
+        "text": "Pengekspor kelapa sawit terbesar di dunia"
+      },
+      {
+        "key": "C",
+        "text": "Penghasil kedelai organik nomor satu di Asia"
+      },
+      {
+        "key": "D",
+        "text": "Penggagas revolusi energi hijau terbarukan"
+      },
+      {
+        "key": "E",
+        "text": "Pengendali cadangan pupuk kimia regional ASEAN"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 37,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Kebijakan fusi partai politik pada tahun 1973 menyederhanakan kontestan pemilu di masa Orde Baru menjadi tiga entitas, yaitu...",
+    "options": [
+      {
+        "key": "A",
+        "text": "PPP (Partai Persatuan Pembangunan), PDI (Partai Demokrasi Indonesia), dan Golongan Karya (Golkar)"
+      },
+      {
+        "key": "B",
+        "text": "Masyumi, Nahdlatul Ulama, dan Partai Nasional Indonesia"
+      },
+      {
+        "key": "C",
+        "text": "Partai Demokrat, PDI Perjuangan, dan Partai Gerindra"
+      },
+      {
+        "key": "D",
+        "text": "Partai Buruh, Partai Sosialis, dan Partai Murba"
+      },
+      {
+        "key": "E",
+        "text": "PKB, PAN, dan Partai Nasdem"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 38,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Penerapan konsep 'Dwifungsi ABRI' secara masif pada masa Orde Baru menempatkan militer dalam dua peran sekaligus, yaitu...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sebagai garda pertahanan keamanan negara sekaligus kekuatan sosial-politik di birokrasi pemerintahan"
+      },
+      {
+        "key": "B",
+        "text": "Sebagai aparat kepolisian dan pengelola bursa efek nasional"
+      },
+      {
+        "key": "C",
+        "text": "Sebagai pengawas kurikulum pendidikan dan hakim peradilan sipil"
+      },
+      {
+        "key": "D",
+        "text": "Sebagai pasukan perdamaian PBB dan pengelola industri perbankan swasta"
+      },
+      {
+        "key": "E",
+        "text": "Sebagai duta diplomasi kebudayaan dan pengawas pers daerah"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 39,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Program kesehatan masyarakat dan pengendalian ledakan laju pertumbuhan penduduk yang berhasil dijalankan pada era Orde Baru adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Program Keluarga Berencana (KB) dengan slogan 'Dua Anak Cukup' dan Posyandu"
+      },
+      {
+        "key": "B",
+        "text": "Program Jaminan Kesehatan Nasional BPJS Mandiri"
+      },
+      {
+        "key": "C",
+        "text": "Program Wajib Militer Pelajar dan Transmigrasi Otomatis"
+      },
+      {
+        "key": "D",
+        "text": "Program Asuransi Tenaga Kerja Swasta Internasional"
+      },
+      {
+        "key": "E",
+        "text": "Program Imunisasi Terpadu Berbasis Digital"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 40,
+    "bab": "BAB 5",
+    "type": "mcq",
+    "text": "Dampak negatif dominasi kekuasaan eksekutif dan sentralisasi pemerintahan yang berlebihan pada akhir masa Orde Baru adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Merajalelanya praktik Korupsi, Kolusi, dan Nepotisme (KKN) serta pembungkaman kebebasan pers"
+      },
+      {
+        "key": "B",
+        "text": "Rendahnya angka partisipasi pemilih dalam pemilihan umum legislatif"
+      },
+      {
+        "key": "C",
+        "text": "Terputusnya seluruh hubungan kerja sama ekonomi dengan negara-negara Barat"
+      },
+      {
+        "key": "D",
+        "text": "Terjadinya konflik perbatasan maritim dengan seluruh negara tetangga ASEAN"
+      },
+      {
+        "key": "E",
+        "text": "Penghapusan secara total anggaran belanja pendidikan nasional"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 41,
+    "bab": "BAB 5",
+    "type": "short_essay",
+    "text": "Sebutkan nama lembaga logistik pemerintah yang dibentuk pada era Orde Baru untuk mengendalikan kestabilan harga beras dan sembako secara nasional!",
+    "aiKeywords": [
+      "Bulog",
+      "Badan Urusan Logistik"
+    ],
+    "rubric": "Menyebutkan Bulog (Badan Urusan Logistik) dengan tepat.",
+    "points": 2
+  },
+  {
+    "id": 42,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Faktor ekonomi determinan yang memicu krisis multidimensi dan gelombang aksi demonstrasi mahasiswa menuntut Reformasi 1998 adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Krisis Moneter Asia yang mengakibatkan anjloknya nilai tukar Rupiah terhadap Dolar AS, inflasi tinggi, dan gelombang PHK massal"
+      },
+      {
+        "key": "B",
+        "text": "Kebijakan embargo perdagangan internasional dari negara-negara anggota PBB"
+      },
+      {
+        "key": "C",
+        "text": "Kegagalan total panen raya nasional akibat kemarau ekstrem El Nino"
+      },
+      {
+        "key": "D",
+        "text": "Ditariknya seluruh investasi tambang minyak dari negara-negara Timur Tengah"
+      },
+      {
+        "key": "E",
+        "text": "Kenaikan tarif pajak ekspor manufaktur tekstil secara mendadak"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 43,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Peristiwa bersejarah pengunduran diri Presiden Soeharto yang menandai berakhirnya era Orde Baru terjadi pada tanggal...",
+    "options": [
+      {
+        "key": "A",
+        "text": "21 Mei 1998 di Istana Merdeka Jakarta"
+      },
+      {
+        "key": "B",
+        "text": "12 Mei 1998 di Universitas Trisakti"
+      },
+      {
+        "key": "C",
+        "text": "17 Agustus 1998 di Gedung DPR/MPR"
+      },
+      {
+        "key": "D",
+        "text": "10 November 1998 di Tugu Pahlawan Surabaya"
+      },
+      {
+        "key": "E",
+        "text": "25 Desember 1998 di Markas Besar ABRI"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 44,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Agenda pokok '6 Tuntutan Reformasi' yang diperjuangkan oleh gerakan mahasiswa dan elemen masyarakat tahun 1998 meliputi...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Adili Soeharto dan kroninya, amandemen UUD 1945, hapuskan Dwifungsi ABRI, tegakkan supremasi hukum, otonomi daerah, dan berantas KKN"
+      },
+      {
+        "key": "B",
+        "text": "Kembali ke UUD 1945 asli tanpa amandemen dan penutupan seluruh bank asing"
+      },
+      {
+        "key": "C",
+        "text": "Pembubaran dewan perwakilan rakyat dan pembentukan sistem monarki parlementer"
+      },
+      {
+        "key": "D",
+        "text": "Penerapan sistem pemilihan umum bertingkat dan penolakan bantuan pinjaman IMF"
+      },
+      {
+        "key": "E",
+        "text": "Pemisahan seluruh provinsi di luar pulau Jawa menjadi negara bagian merdeka"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 45,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Langkah terobosan demokratis yang diambil pada masa pemerintahan Presiden B.J. Habibie di bidang komunikasi dan informasi adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Membuka kebebasan pers seluas-luasnya melalui pencabutan Surat Izin Usaha Penerbitan Pers (SIUPP)"
+      },
+      {
+        "key": "B",
+        "text": "Mewajibkan seluruh kantor berita berafiliasi dengan stasiun televisi TVRI"
+      },
+      {
+        "key": "C",
+        "text": "Menutup akses internet dan jaringan telekomunikasi luar negeri"
+      },
+      {
+        "key": "D",
+        "text": "Menghapuskan Departemen Penerangan dan Kominfo secara mendadak"
+      },
+      {
+        "key": "E",
+        "text": "Memberlakukan sensor mutlak atas setiap artikel berita politik harian"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 46,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Salah satu perubahan mendasar dalam struktur ketatanegaraan Indonesia pasca amandemen UUD 1945 (1999–2002) adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Presiden dan Wakil Presiden dipilih langsung oleh rakyat serta pembatasan masa jabatan maksimal 2 periode (10 tahun)"
+      },
+      {
+        "key": "B",
+        "text": "Presiden memegang wewenang legislatif penuh tanpa persetujuan DPR RI"
+      },
+      {
+        "key": "C",
+        "text": "Penghapusan Mahkamah Konstitusi dan Komisi Yudisial"
+      },
+      {
+        "key": "D",
+        "text": "Pengangkatan anggota MPR seumur hidup dari unsur golongan karya"
+      },
+      {
+        "key": "E",
+        "text": "Peniadaan pemilihan kepala daerah dan penunjukan langsung oleh Presiden"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 47,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Lembaga penegak hukum independen yang dibentuk pada era Reformasi (tahun 2002) dengan kewenangan khusus memberantas tindak pidana korupsi adalah...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Komisi Pemberantasan Korupsi (KPK)"
+      },
+      {
+        "key": "B",
+        "text": "Badan Pemeriksa Keuangan (BPK)"
+      },
+      {
+        "key": "C",
+        "text": "Pusat Pelaporan dan Analisis Transaksi Keuangan (PPATK)"
+      },
+      {
+        "key": "D",
+        "text": "Komisi Pengawas Persaingan Usaha (KPPU)"
+      },
+      {
+        "key": "E",
+        "text": "Komisi Kejaksaan Republik Indonesia"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 48,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Pemilihan Umum Presiden dan Wakil Presiden secara Langsung oleh rakyat untuk pertama kalinya dalam sejarah Indonesia diselenggarakan pada tahun...",
+    "options": [
+      {
+        "key": "A",
+        "text": "2004"
+      },
+      {
+        "key": "B",
+        "text": "1999"
+      },
+      {
+        "key": "C",
+        "text": "2009"
+      },
+      {
+        "key": "D",
+        "text": "2014"
+      },
+      {
+        "key": "E",
+        "text": "1997"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 49,
+    "bab": "BAB 6",
+    "type": "mcq",
+    "text": "Penerapan kebijakan Otonomi Daerah melalui UU No. 22 Tahun 1999 bertujuan positif untuk...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Memberikan wewenang kepada pemerintah daerah kabupaten/kota untuk mengatur potensi dan pembangunan daerahnya sendiri"
+      },
+      {
+        "key": "B",
+        "text": "Mengurangi kewajiban perpajakan pemerintah daerah kepada negara tetangga"
+      },
+      {
+        "key": "C",
+        "text": "Membentuk mata uang regional di masing-masing provinsi kepulauan"
+      },
+      {
+        "key": "D",
+        "text": "Menghapuskan sistem peradilan hukum nasional di tingkat daerah"
+      },
+      {
+        "key": "E",
+        "text": "Membagi kepulauan Indonesia menjadi negara persemakmuran mandiri"
+      }
+    ],
+    "correct": "A",
+    "points": 2
+  },
+  {
+    "id": 50,
+    "bab": "BAB 6",
+    "type": "essay",
+    "text": "Evaluasilah dampak positif dan tantangan pelaksanaan Pemilu Presiden Langsung serta Otonomi Daerah pada era Reformasi terhadap kematangan demokrasi di Indonesia!",
+    "aiKeywords": [
+      "pemilu langsung",
+      "otonomi daerah",
+      "partisipasi rakyat",
+      "desentralisasi",
+      "kedaulatan rakyat",
+      "KPU",
+      "tantangan politik dinasti",
+      "transparansi"
+    ],
+    "rubric": "Menjelaskan sisi positif berupa kedaulatan mutlak di tangan pemilih dan pemerataan pembangunan daerah, serta mengkritisi tantangan berupa potensi politik uang (money politics) dan korupsi di tingkat lokal.",
+    "points": 4
+  }
+]
