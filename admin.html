@@ -504,20 +504,28 @@
         if (list.length === 0) {
           container.innerHTML = `<span class="text-xs text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-700/50 px-3 py-1.5 rounded-xl flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Tidak ada siswa terblokir</span>`;
         } else {
-          let html = `<div class="flex flex-wrap items-center gap-1.5">`;
+          let html = `<div class="flex flex-wrap items-center gap-2">`;
           list.forEach(item => {
+            const attemptBadge = item.attemptCount && item.attemptCount > 0 
+              ? `<span class="bg-amber-400 text-amber-950 px-1.5 py-0.5 rounded-md text-[10px] font-extrabold animate-pulse ml-1" title="Percobaan Masuk Ulang Terdeteksi (${item.lastAttemptTime || ''} - ${item.lastAttemptDevice || 'Device Lain'})">🚨 ${item.attemptCount}x Coba Masuk</span>` 
+              : '';
             html += `
-              <span class="inline-flex items-center space-x-1.5 px-2.5 py-1 bg-rose-900/80 border border-rose-500 text-white rounded-xl text-xs font-bold shadow-xs">
-                <span>${item.nama}</span>
-                <button onclick="handleAdminUnblockStudent('${item.nama}')" title="Reset Login Siswa Ini" class="w-4 h-4 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center cursor-pointer transition">
-                  <i data-lucide="unlock" class="w-2.5 h-2.5"></i>
+              <div class="inline-flex items-center space-x-2 px-3 py-1.5 bg-rose-900/90 border border-rose-500/80 text-white rounded-xl text-xs font-bold shadow-sm">
+                <div class="flex items-center space-x-1">
+                  <i data-lucide="user-x" class="w-3.5 h-3.5 text-rose-300"></i>
+                  <span>${item.nama}</span>
+                  ${attemptBadge}
+                </div>
+                <button onclick="handleAdminUnblockStudent('${item.nama}')" title="Reset Izin Login Siswa Ini" class="px-2 py-0.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-[11px] flex items-center space-x-1 cursor-pointer transition active:scale-95 shadow-xs">
+                  <i data-lucide="unlock" class="w-3 h-3"></i>
+                  <span>Reset</span>
                 </button>
-              </span>
+              </div>
             `;
           });
           html += `</div>`;
           html += `
-            <button onclick="handleAdminUnblockAll()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition flex items-center space-x-1 shadow-md cursor-pointer active:scale-95">
+            <button onclick="handleAdminUnblockAll()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition flex items-center space-x-1 shadow-md cursor-pointer active:scale-95 shrink-0">
               <i data-lucide="unlock" class="w-3.5 h-3.5"></i>
               <span>Reset Semua Blokir</span>
             </button>
@@ -1567,6 +1575,11 @@ Bobot: 2.0`;
         window.CBT_DB.listenSubmissions((cloudList) => {
           renderTable(getCombinedStudents());
           updateDbBadge();
+        });
+
+        window.CBT_DB.listenBlockedStudents((blockedList) => {
+          updateBlockedStudentsUi();
+          renderTable(getCombinedStudents());
         });
       }
     };

@@ -203,7 +203,7 @@
       lucide.createIcons();
     }
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
       e.preventDefault();
       const identifier = document.getElementById('input-identifier').value.trim();
       const password = document.getElementById('input-password').value.trim();
@@ -237,10 +237,20 @@
           return;
         }
 
-        // Cek apakah Nama Lengkap Siswa sedang terblokir karena kecurangan
-        const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
+        // Cek status blokir kecurangan siswa secara Realtime Cloud (Cross-Device)
+        let isBlocked = false;
+        let blockDetails = null;
+        if (window.CBT_DB && typeof window.CBT_DB.checkStudentBlockedAsync === 'function') {
+          const res = await window.CBT_DB.checkStudentBlockedAsync(studentName);
+          isBlocked = res.isBlocked;
+          blockDetails = res.data;
+        } else {
+          isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
+        }
+
         if (isBlocked) {
-          alert(`⛔ AKSES LOGIN DIBLOKIR OLEH SISTEM PENGAMAN CBT:\n\nNama Siswa: "${studentName}"\nStatus: TERBLOKIR (3x Pelanggaran / Keluar Layar Ujian)\n\nAnda tidak dapat login atau mengikuti ujian sampai Guru Pengawas / Admin mereset izin login Anda di Panel Admin.`);
+          const attemptMsg = blockDetails && blockDetails.attemptCount ? `\n🚨 Log Percobaan: Terdeteksi ${blockDetails.attemptCount}x coba masuk (Tercatat di Panel Admin).` : '';
+          alert(`⛔ AKSES LOGIN DITOLAK (AKUN TERBLOKIR):\n\nNama Siswa: "${studentName}"\nStatus: TERBLOKIR (3x Pelanggaran / Keluar Layar Ujian)${attemptMsg}\n\nAnda tidak dapat login dari perangkat ini maupun perangkat orang lain sampai Guru Pengawas / Admin mereset izin login Anda di Panel Admin.`);
           const inputName = document.getElementById('input-student-name');
           if (inputName) {
             inputName.value = "";
