@@ -3626,6 +3626,8 @@
         fieldStudentClass.classList.remove('hidden');
         labelPass.innerText = "Token Ujian 5-Menit";
         tokenHint.classList.remove('hidden');
+        inputPass.type = "text";
+        inputPass.className = "w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold uppercase focus:outline-none focus:ring-2 focus:ring-rg-cyan focus:bg-white transition tracking-widest";
         inputPass.placeholder = "Masukkan Token Ujian Aktif";
         inputPass.value = "";
         btnLabel.innerText = "Mulai Mengerjakan Ujian";
@@ -3644,6 +3646,8 @@
         if (teacherLabel) teacherLabel.innerText = "Username Admin";
         labelPass.innerText = "Password Admin";
         tokenHint.classList.add('hidden');
+        inputPass.type = "password";
+        inputPass.className = "w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rg-cyan focus:bg-white transition";
         inputPass.placeholder = "Masukkan Password Admin";
         inputPass.value = "";
         btnLabel.innerText = "Buka Panel Admin & Bank Soal";
