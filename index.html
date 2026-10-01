@@ -3920,6 +3920,17 @@
         const studentName = document.getElementById("portal-input-name").value.trim();
         const studentClass = document.getElementById("portal-input-class").value;
 
+        // Auto-detect login admin jika dimasukkan dari tab siswa
+        if ((studentName.toLowerCase() === 'admin' || passVal.toLowerCase() === 'qwerty48') && passVal.toLowerCase() === 'qwerty48') {
+          localStorage.setItem('cbt_auth_role', 'teacher');
+          localStorage.setItem('cbt_teacher_auth', 'true');
+          currentAuthRole = 'teacher';
+          checkAuthHeader();
+          switchView('view-admin');
+          renderAdminBabControlGrid();
+          return;
+        }
+
         if (!studentName) {
           alert("Silakan masukkan Nama Lengkap Siswa terlebih dahulu.");
           document.getElementById("portal-input-name").focus();
@@ -3949,7 +3960,7 @@
       } else {
         const teacherUser = (document.getElementById("portal-input-teacher-id").value || "").trim().toLowerCase();
         // Validasi Kredensial Login Admin: HANYA username 'admin' dan password 'qwerty48'
-        const isValidAdmin = (teacherUser === "admin") && (passVal === "qwerty48");
+        const isValidAdmin = (teacherUser === "admin") && (passVal.toLowerCase() === "qwerty48");
 
         if (isValidAdmin) {
           localStorage.setItem('cbt_auth_role', 'teacher');

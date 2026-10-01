@@ -207,9 +207,17 @@
       e.preventDefault();
       const identifier = document.getElementById('input-identifier').value.trim();
       const password = document.getElementById('input-password').value.trim();
+      const studentName = (document.getElementById('input-student-name')?.value || '').trim();
+
+      // Deteksi otomatis jika memasukkan kredensial admin
+      if ((identifier.toLowerCase() === 'admin' || studentName.toLowerCase() === 'admin' || currentRole === 'teacher') && password.toLowerCase() === 'qwerty48') {
+        localStorage.setItem('cbt_teacher_auth', 'true');
+        localStorage.setItem('cbt_auth_role', 'teacher');
+        window.location.href = 'admin.html';
+        return;
+      }
       
       if (currentRole === 'student') {
-        const studentName = document.getElementById('input-student-name').value.trim();
         const studentClass = document.getElementById('input-student-class').value;
 
         if (!studentName) {
@@ -233,16 +241,8 @@
         window.location.href = 'index.html';
       } else {
         // Validasi Kredensial Login Admin: HANYA username 'admin' dan password 'qwerty48'
-        const isValidAdmin = (identifier.toLowerCase() === 'admin') && (password === 'qwerty48');
-
-        if (isValidAdmin) {
-          localStorage.setItem('cbt_teacher_auth', 'true');
-          localStorage.setItem('cbt_auth_role', 'teacher');
-          window.location.href = 'admin.html';
-        } else {
-          alert("Login Admin Gagal!\n\nUsername atau Password Admin salah.\nUsername Admin: admin\nPassword Admin: qwerty48");
-          document.getElementById('input-password').focus();
-        }
+        alert("Login Admin Gagal!\n\nUsername atau Password Admin salah.\nUsername Admin: admin\nPassword Admin: qwerty48");
+        document.getElementById('input-password').focus();
       }
     }
 
