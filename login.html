@@ -241,6 +241,11 @@
         const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
         if (isBlocked) {
           alert(`⛔ AKSES LOGIN DIBLOKIR OLEH SISTEM PENGAMAN CBT:\n\nNama Siswa: "${studentName}"\nStatus: TERBLOKIR (3x Pelanggaran / Keluar Layar Ujian)\n\nAnda tidak dapat login atau mengikuti ujian sampai Guru Pengawas / Admin mereset izin login Anda di Panel Admin.`);
+          const inputName = document.getElementById('input-student-name');
+          if (inputName) {
+            inputName.value = "";
+            inputName.focus();
+          }
           return;
         }
 

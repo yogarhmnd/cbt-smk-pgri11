@@ -3995,10 +3995,15 @@
           return;
         }
 
-        // Cek status blokir kecurangan siswa
+        // Cek status blokir kecurangan siswa (Berdasarkan Nama Lengkap Siswa)
         const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
         if (isBlocked) {
-          alert(`⛔ AKSES LOGIN DIBLOKIR OLEH SISTEM CBT:\n\nNama Siswa: "${studentName}"\nStatus: DIBLOKIR (3x Pelanggaran / Keluar Layar Ujian)\n\nAnda tidak dapat login atau mengikuti ujian karena telah terdiskualifikasi pada sesi sebelumnya. Silakan temui Guru Pengawas / Admin di kelas untuk mereset izin login Anda.`);
+          alert(`⛔ AKSES LOGIN DIBLOKIR OLEH SISTEM CBT:\n\nNama Siswa: "${studentName}"\nStatus: TERBLOKIR (3x Pelanggaran / Keluar Layar Ujian)\n\nAnda tidak dapat login atau mengikuti ujian karena telah terdiskualifikasi pada sesi sebelumnya.\nSilakan temui Guru Pengawas / Admin di kelas untuk mereset izin login Anda.`);
+          const inputName = document.getElementById("portal-input-name");
+          if (inputName) {
+            inputName.value = "";
+            inputName.focus();
+          }
           return;
         }
 
@@ -6631,17 +6636,17 @@ Bobot: 2.0`;
         if (modal) modal.classList.remove("hidden");
       } else if (cheatViolations === 2) {
         if (title) title.innerText = "🚨 PERINGATAN KERAS (2 dari 3)";
-        if (desc) desc.innerHTML = "<strong class='text-rose-600'>INI PERINGATAN TERAKHIR!</strong> Jika Anda keluar dari layar ujian <strong>1 KALI LAGI</strong>, ujian akan langsung DIHENTIKAN OTOMATIS, lembar ujian dikumpulkan, dan akun Anda DIBLOKIR.";
+        if (desc) desc.innerHTML = "<strong class='text-rose-600 font-extrabold'>INI PERINGATAN TERAKHIR (2/3)!</strong> Jika Anda berganti tab atau keluar dari layar ujian <strong>1 KALI LAGI</strong>, ujian Anda akan <strong>OTOMATIS BERHENTI & DIKUMPULKAN</strong>, lalu akun Nama Lengkap Anda <strong>DIBLOKIR</strong>.";
         if (badgeText) badgeText.innerText = "PERINGATAN TERAKHIR (2/3)";
         if (badgeCont) badgeCont.className = "inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-black mb-3 bg-rose-100 text-rose-900 border border-rose-300 animate-pulse";
-        if (btnText) btnText.innerText = "Saya Paham & Kembali ke Ujian (TOLERANSI TERAKHIR)";
+        if (btnText) btnText.innerText = "Saya Paham & Kembali ke Ujian (Toleransi Terakhir)";
         if (btnDismiss) {
           btnDismiss.onclick = () => dismissCheatModal();
           btnDismiss.className = "w-full py-3 px-4 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 active:scale-[0.98] text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg shadow-rose-600/30 transition cursor-pointer flex items-center justify-center space-x-1.5";
         }
         if (modal) modal.classList.remove("hidden");
       } else if (cheatViolations >= 3) {
-        // Pelanggaran ke-3: Diskualifikasi otomatis & Blokir
+        // Pelanggaran ke-3: Diskualifikasi otomatis, Blokir Nama Siswa & Kembalikan ke Tampilan Login
         handleExamForceDisqualification(reason);
       }
       lucide.createIcons();
@@ -6660,7 +6665,13 @@ Bobot: 2.0`;
       const studentNisn = localStorage.getItem('cbt_student_nisn') || '0000000000';
       const studentClass = localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1';
 
-      // 1. Blokir nama siswa di CBT_DB & localStorage
+      // 1. Hentikan timer ujian
+      if (examTimerInterval) {
+        clearInterval(examTimerInterval);
+        examTimerInterval = null;
+      }
+
+      // 2. Blokir nama siswa di CBT_DB & localStorage
       if (window.CBT_DB) {
         window.CBT_DB.blockStudent(studentName, reason);
       } else {
@@ -6671,7 +6682,7 @@ Bobot: 2.0`;
         }
       }
 
-      // 2. Hitung jawaban saat ini
+      // 3. Hitung jawaban saat ini dan kumpulkan paksa
       let pgScore = 0;
       let essayScore = 0;
       let totalMaxPoints = 0;
@@ -6725,13 +6736,19 @@ Bobot: 2.0`;
         window.CBT_DB.saveSubmission(disqualifiedSubmission);
       }
 
-      // 3. Keluar dari fullscreen
+      // 4. Keluar dari fullscreen
       try {
         if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
       } catch (e) {}
 
-      // 4. Tampilkan Modal Diskualifikasi
+      // 5. Bersihkan data sesi pengerjaan siswa
+      localStorage.removeItem('cbt_auth_role');
+      localStorage.removeItem('cbt_student_name');
+      localStorage.removeItem('cbt_student_class');
+      currentAuthRole = null;
+
+      // 6. Tampilkan Pop-Up Diskualifikasi ke-3 & Arahkan Otomatis Kembali ke Tampilan Login
       const modal = document.getElementById("cheat-modal");
       const title = document.getElementById("cheat-modal-title");
       const desc = document.getElementById("cheat-modal-desc");
@@ -6742,19 +6759,27 @@ Bobot: 2.0`;
       const btnDismiss = document.getElementById("btn-cheat-dismiss");
       const btnText = document.getElementById("btn-cheat-dismiss-text");
 
-      if (title) title.innerText = "⛔ UJIAN DIHENTIKAN OTOMATIS";
-      if (desc) desc.innerHTML = `<strong class='text-rose-600 font-extrabold block text-sm mb-1'>STATUS: TERDISKUALIFIKASI & DIBLOKIR</strong>Anda telah melakukan 3x pelanggaran kecurangan. Sesi ujian Anda telah resmi dihentikan dan lembar jawaban dikumpulkan paksa. Akun atas nama <strong>"${studentName}"</strong> telah <strong>DIBLOKIR</strong> dan tidak dapat login kembali sampai Guru Pengawas / Admin mereset status Anda.`;
-      if (badgeText) badgeText.innerText = "DISKUALIFIKASI (3/3 PELANGGARAN)";
+      if (title) title.innerText = "⛔ UJIAN BERHENTI (3x PELANGGARAN)";
+      if (desc) desc.innerHTML = `<strong class='text-rose-600 font-extrabold block text-sm mb-1'>UJIAN DIHENTIKAN & AKUN DIBLOKIR!</strong>Anda telah 3x keluar dari layar ujian. Lembar jawaban Anda telah dikumpulkan secara otomatis dan akses Nama Lengkap <strong>"${studentName}"</strong> resmi <strong>DIBLOKIR</strong>.<br><br><span class='text-slate-600 text-xs font-semibold'>Anda sekarang dialihkan kembali ke tampilan login. Anda tidak dapat login kembali sampai Guru Pengawas / Admin mereset izin login Anda di Panel Admin.</span>`;
+      if (badgeText) badgeText.innerText = "3/3 PELANGGARAN - DIBLOKIR";
       if (badgeCont) badgeCont.className = "inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-black mb-3 bg-rose-600 text-white shadow-md";
-      if (strikeLabel) strikeLabel.innerText = "3 / 3 (DISKUALIFIKASI)";
-      if (reasonText) reasonText.innerText = `Terdeteksi 3x keluar dari layar ujian: ${reason}`;
+      if (strikeLabel) strikeLabel.innerText = "3 / 3 (BATAS MAKSIMAL TERCAPAI)";
+      if (reasonText) reasonText.innerText = `Terdeteksi 3x pelanggaran layar: ${reason}`;
       
-      if (btnText) btnText.innerText = "Keluar ke Halaman Utama";
+      const returnToLogin = () => {
+        if (modal) modal.classList.add("hidden");
+        checkAuthHeader();
+        setPortalLoginRole('student');
+        const inputName = document.getElementById("portal-input-name");
+        if (inputName) inputName.value = "";
+        const inputPass = document.getElementById("portal-input-pass");
+        if (inputPass) inputPass.value = "";
+        switchView('view-portal');
+      };
+
+      if (btnText) btnText.innerText = "Kembali ke Tampilan Login";
       if (btnDismiss) {
-        btnDismiss.onclick = () => {
-          modal.classList.add("hidden");
-          handleLogout();
-        };
+        btnDismiss.onclick = returnToLogin;
         btnDismiss.className = "w-full py-3 px-4 bg-slate-900 hover:bg-black text-white text-xs sm:text-sm font-extrabold rounded-2xl shadow-lg transition cursor-pointer flex items-center justify-center space-x-1.5";
       }
 
@@ -7349,8 +7374,21 @@ Bobot: 2.0`;
         renderAdminBabControlGrid();
         renderAdminTable(getCombinedStudents());
       } else if (currentAuthRole === 'student') {
-        switchView('view-student-babs');
-        renderStudentBabCards();
+        const studentName = localStorage.getItem('cbt_student_name') || '';
+        const isBlocked = window.CBT_DB ? window.CBT_DB.isStudentBlocked(studentName) : (JSON.parse(localStorage.getItem('cbt_blocked_students') || '[]').some(s => s.nama.toLowerCase() === studentName.toLowerCase()));
+        if (isBlocked) {
+          localStorage.removeItem('cbt_auth_role');
+          localStorage.removeItem('cbt_student_name');
+          localStorage.removeItem('cbt_student_class');
+          currentAuthRole = null;
+          checkAuthHeader();
+          setPortalLoginRole('student');
+          switchView('view-portal');
+          alert(`⛔ AKSES UJIAN DIBLOKIR:\n\nNama Siswa: "${studentName}" sedang dalam status TERBLOKIR (3x Pelanggaran / Keluar Layar Ujian).\n\nSilakan temui Guru Pengawas / Admin di kelas untuk mereset izin login Anda.`);
+        } else {
+          switchView('view-student-babs');
+          renderStudentBabCards();
+        }
       } else {
         switchView('view-portal');
       }
