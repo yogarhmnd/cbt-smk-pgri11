@@ -362,18 +362,14 @@
                 <div id="field-student-class">
                   <label class="block text-[11px] font-bold text-slate-700 mb-1">Kelas & Kompetensi Keahlian</label>
                   <select id="portal-input-class" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-rg-cyan">
-                    <option value="XI Akuntansi 1">XI Akuntansi 1</option>
-                    <option value="XI Akuntansi 2">XI Akuntansi 2</option>
-                    <option value="XI Manajemen Perkantoran dan Layanan Bisnis 1">XI Manajemen Perkantoran 1</option>
-                    <option value="XI Manajemen Perkantoran dan Layanan Bisnis 2">XI Manajemen Perkantoran 2</option>
-                    <option value="XI Manajemen Perkantoran dan Layanan Bisnis 3">XI Manajemen Perkantoran 3</option>
-                    <option value="XI Bisnis Ritel 1">XI Bisnis Ritel 1</option>
-                    <option value="XI Bisnis Ritel 2">XI Bisnis Ritel 2</option>
-                    <option value="XI Bisnis Ritel 3">XI Bisnis Ritel 3</option>
-                    <option value="XII RPL 1">XII RPL 1</option>
-                    <option value="XII RPL 2">XII RPL 2</option>
-                    <option value="XII AKL 1">XII AKL 1</option>
-                    <option value="XII OTKP 1">XII OTKP 1</option>
+                    <option value="XI AKL 1">XI AKL 1</option>
+                    <option value="XI AKL 2">XI AKL 2</option>
+                    <option value="XI BR 1">XI BR 1</option>
+                    <option value="XI BR 2">XI BR 2</option>
+                    <option value="XI BR 3">XI BR 3</option>
+                    <option value="XI MP 1">XI MP 1</option>
+                    <option value="XI MP 2">XI MP 2</option>
+                    <option value="XI MP 3">XI MP 3</option>
                   </select>
                 </div>
 
@@ -809,7 +805,7 @@
             </div>
             <div class="text-left">
               <p class="text-xs font-extrabold text-white" id="student-portal-name-display">Ahmad Fauzi</p>
-              <p class="text-[11px] text-cyan-200 font-semibold" id="student-portal-meta-display">NISN: 0067829102 • XI Akuntansi 1</p>
+              <p class="text-[11px] text-cyan-200 font-semibold" id="student-portal-meta-display">NISN: 0067829102 • XI AKL 1</p>
             </div>
             <button onclick="renderStudentBabCards()" title="Refresh Status Sesi" class="p-2 bg-white/15 hover:bg-white/30 rounded-xl text-white transition active:scale-95 cursor-pointer">
               <i data-lucide="refresh-cw" class="w-4 h-4"></i>
@@ -903,7 +899,7 @@
             <div class="hidden md:flex items-center space-x-2 border-l border-white/15 pl-4">
               <div class="text-right">
                 <p class="text-xs font-extrabold text-white" id="exam-student-name">Ahmad Fauzi</p>
-                <p class="text-[10px] text-cyan-200 font-semibold" id="exam-student-meta">NISN: 0067829102 • XI Akuntansi 1</p>
+                <p class="text-[10px] text-cyan-200 font-semibold" id="exam-student-meta">NISN: 0067829102 • XI AKL 1</p>
               </div>
               <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-300 font-extrabold text-xs flex items-center justify-center border border-cyan-400/40">
                 AF
@@ -1502,15 +1498,15 @@
 
                 <!-- Filter Jurusan Kelas XI Baru -->
                 <select id="admin-class-filter" onchange="filterAdminTable()" class="py-1.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-rg-cyan">
-                  <option value="ALL">Semua Jurusan</option>
-                  <option value="XI Akuntansi 1">XI Akuntansi 1</option>
-                  <option value="XI Akuntansi 2">XI Akuntansi 2</option>
-                  <option value="XI Manajemen Perkantoran dan Layanan Bisnis 1">XI MPLB 1</option>
-                  <option value="XI Manajemen Perkantoran dan Layanan Bisnis 2">XI MPLB 2</option>
-                  <option value="XI Manajemen Perkantoran dan Layanan Bisnis 3">XI MPLB 3</option>
-                  <option value="XI Bisnis Ritel 1">XI Bisnis Ritel 1</option>
-                  <option value="XI Bisnis Ritel 2">XI Bisnis Ritel 2</option>
-                  <option value="XI Bisnis Ritel 3">XI Bisnis Ritel 3</option>
+                  <option value="ALL">Semua Kelas</option>
+                  <option value="XI AKL 1">XI AKL 1</option>
+                  <option value="XI AKL 2">XI AKL 2</option>
+                  <option value="XI BR 1">XI BR 1</option>
+                  <option value="XI BR 2">XI BR 2</option>
+                  <option value="XI BR 3">XI BR 3</option>
+                  <option value="XI MP 1">XI MP 1</option>
+                  <option value="XI MP 2">XI MP 2</option>
+                  <option value="XI MP 3">XI MP 3</option>
                 </select>
               </div>
             </div>
@@ -2479,7 +2475,7 @@
             <span>Hasil Evaluasi AI Terpadu</span>
           </div>
           <h3 class="text-lg font-extrabold text-slate-900" id="review-student-name">Ahmad Fauzi</h3>
-          <p class="text-xs text-slate-500" id="review-student-meta">NISN: 0067829102 • XI Akuntansi 1</p>
+          <p class="text-xs text-slate-500" id="review-student-meta">NISN: 0067829102 • XI AKL 1</p>
         </div>
 
         <div class="flex items-center space-x-3 bg-slate-50 p-2.5 px-4 rounded-2xl border border-slate-200">
@@ -2597,7 +2593,7 @@
         </div>
         <div>
           <p class="text-[10px] font-bold text-slate-400 uppercase">Kelas / Jurusan</p>
-          <p class="text-xs sm:text-sm font-extrabold text-slate-800" id="rules-student-class">XI Akuntansi 1</p>
+          <p class="text-xs sm:text-sm font-extrabold text-slate-800" id="rules-student-class">XI AKL 1</p>
         </div>
         <div>
           <p class="text-[10px] font-bold text-slate-400 uppercase">Durasi Ujian</p>
@@ -3869,7 +3865,7 @@
       const access = getBabAccessControl();
       const masterQuestions = getStoredQuestions();
       const studentName = localStorage.getItem('cbt_student_name') || 'Ahmad Fauzi';
-      const studentClass = localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1';
+      const studentClass = localStorage.getItem('cbt_student_class') || 'XI AKL 1';
 
       const nameEl = document.getElementById('student-portal-name-display');
       const metaEl = document.getElementById('student-portal-meta-display');
@@ -3981,7 +3977,7 @@
 
       if (currentPortalRole === 'student') {
         const studentName = (document.getElementById("portal-input-name")?.value || "").trim();
-        const studentClass = document.getElementById("portal-input-class")?.value || "XI Akuntansi 1";
+        const studentClass = document.getElementById("portal-input-class")?.value || "XI AKL 1";
 
         // Auto-detect login admin jika dimasukkan dari tab siswa
         if (studentName.toLowerCase() === 'admin' || isTeacherPass) {
@@ -4063,7 +4059,7 @@
     // Modal Tata Tertib & Ketentuan Ujian CBT Formal
     function openStudentExamRulesModal(name, sClass, babKey) {
       const studentName = name || localStorage.getItem('cbt_student_name') || "Ahmad Fauzi";
-      const studentClass = sClass || localStorage.getItem('cbt_student_class') || "XI Akuntansi 1";
+      const studentClass = sClass || localStorage.getItem('cbt_student_class') || "XI AKL 1";
       const chosenBab = babKey || currentExamBab || "ALL";
       currentExamBab = chosenBab;
 
@@ -6163,7 +6159,7 @@ Bobot: 2.0`;
 
     function initExamView(isNewSession = false) {
       const studentName = localStorage.getItem('cbt_student_name') || 'Ahmad Fauzi';
-      const studentClass = localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1';
+      const studentClass = localStorage.getItem('cbt_student_class') || 'XI AKL 1';
       const chosenBab = currentExamBab || localStorage.getItem('cbt_selected_exam_bab') || 'BAB 1';
 
       const master = getStoredQuestions();
@@ -6757,7 +6753,7 @@ Bobot: 2.0`;
     function handleExamForceDisqualification(reason = '3x Keluar dari Layar Ujian / Kecurangan') {
       const studentName = localStorage.getItem('cbt_student_name') || 'Siswa';
       const studentNisn = localStorage.getItem('cbt_student_nisn') || '0000000000';
-      const studentClass = localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1';
+      const studentClass = localStorage.getItem('cbt_student_class') || 'XI AKL 1';
 
       // 1. Hentikan timer ujian
       if (examTimerInterval) {
@@ -6956,7 +6952,7 @@ Bobot: 2.0`;
       const studentSubmission = {
         nisn: localStorage.getItem('cbt_student_nisn') || '0067829102',
         nama: localStorage.getItem('cbt_student_name') || 'Ahmad Fauzi',
-        kelas: localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1',
+        kelas: localStorage.getItem('cbt_student_class') || 'XI AKL 1',
         nilai: finalScore,
         pgScore: pgScore.toFixed(1),
         essayScore: essayScore.toFixed(1),
@@ -6995,7 +6991,7 @@ Bobot: 2.0`;
       { 
         nisn: "0067829102", 
         nama: "Ahmad Fauzi", 
-        kelas: "XI Akuntansi 1", 
+        kelas: "XI AKL 1", 
         pgScore: "65.0", 
         essayScore: "20.0", 
         nilai: "85.0", 
@@ -7021,7 +7017,7 @@ Bobot: 2.0`;
       { 
         nisn: "0061298411", 
         nama: "Siti Nurhaliza", 
-        kelas: "XI Akuntansi 2", 
+        kelas: "XI AKL 2", 
         pgScore: "70.0", 
         essayScore: "27.5", 
         nilai: "97.5", 
@@ -7033,7 +7029,7 @@ Bobot: 2.0`;
       { 
         nisn: "0068491023", 
         nama: "Budi Santoso", 
-        kelas: "XI Manajemen Perkantoran dan Layanan Bisnis 1", 
+        kelas: "XI BR 1", 
         pgScore: "55.0", 
         essayScore: "20.0", 
         nilai: "75.0", 
@@ -7045,7 +7041,7 @@ Bobot: 2.0`;
       { 
         nisn: "0063948172", 
         nama: "Dewi Lestari", 
-        kelas: "XI Manajemen Perkantoran dan Layanan Bisnis 2", 
+        kelas: "XI BR 2", 
         pgScore: "68.0", 
         essayScore: "22.0", 
         nilai: "90.0", 
@@ -7057,7 +7053,7 @@ Bobot: 2.0`;
       { 
         nisn: "0065928104", 
         nama: "Rizky Pratama", 
-        kelas: "XI Manajemen Perkantoran dan Layanan Bisnis 3", 
+        kelas: "XI BR 3", 
         pgScore: "52.0", 
         essayScore: "18.0", 
         nilai: "70.0", 
@@ -7069,7 +7065,7 @@ Bobot: 2.0`;
       { 
         nisn: "0069384719", 
         nama: "Putri Anggraini", 
-        kelas: "XI Bisnis Ritel 1", 
+        kelas: "XI MP 1", 
         pgScore: "67.5", 
         essayScore: "25.0", 
         nilai: "92.5", 
@@ -7081,7 +7077,7 @@ Bobot: 2.0`;
       { 
         nisn: "0064928173", 
         nama: "Dimas Arya", 
-        kelas: "XI Bisnis Ritel 2", 
+        kelas: "XI MP 2", 
         pgScore: "60.0", 
         essayScore: "22.5", 
         nilai: "82.5", 
@@ -7093,7 +7089,7 @@ Bobot: 2.0`;
       { 
         nisn: "0068172635", 
         nama: "Nadia Rahma", 
-        kelas: "XI Bisnis Ritel 3", 
+        kelas: "XI MP 3", 
         pgScore: "65.0", 
         essayScore: "22.5", 
         nilai: "87.5", 

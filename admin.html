@@ -186,10 +186,14 @@
 
           <select id="class-filter" onchange="filterTable()" class="py-1.5 px-3 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-600">
             <option value="ALL">Semua Kelas</option>
-            <option value="XII RPL 1">XII RPL 1</option>
-            <option value="XII RPL 2">XII RPL 2</option>
-            <option value="XII AKL 1">XII AKL 1</option>
-            <option value="XII OTKP 1">XII OTKP 1</option>
+            <option value="XI AKL 1">XI AKL 1</option>
+            <option value="XI AKL 2">XI AKL 2</option>
+            <option value="XI BR 1">XI BR 1</option>
+            <option value="XI BR 2">XI BR 2</option>
+            <option value="XI BR 3">XI BR 3</option>
+            <option value="XI MP 1">XI MP 1</option>
+            <option value="XI MP 2">XI MP 2</option>
+            <option value="XI MP 3">XI MP 3</option>
           </select>
 
           <button onclick="exportToCSV()" class="inline-flex items-center space-x-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs transition">
@@ -391,12 +395,14 @@
 
     // Sample Data Siswa SMK PGRI 11 Ciledug
     let defaultStudents = [
-      { nisn: "0067829102", nama: "Ahmad Fauzi", kelas: "XII RPL 1", benar: 34, salah: 6, nilai: "85.0", pelanggaran: 0, waktuSubmit: "10:14:22" },
-      { nisn: "0061298411", nama: "Siti Nurhaliza", kelas: "XII AKL 1", benar: 39, salah: 1, nilai: "97.5", pelanggaran: 0, waktuSubmit: "10:02:11" },
-      { nisn: "0068491023", nama: "Budi Santoso", kelas: "XII RPL 1", benar: 30, salah: 10, nilai: "75.0", pelanggaran: 2, waktuSubmit: "10:28:45" },
-      { nisn: "0063948172", nama: "Dewi Lestari", kelas: "XII OTKP 1", benar: 36, salah: 4, nilai: "90.0", pelanggaran: 0, waktuSubmit: "10:18:30" },
-      { nisn: "0065928104", nama: "Rizky Pratama", kelas: "XII RPL 2", benar: 28, salah: 12, nilai: "70.0", pelanggaran: 1, waktuSubmit: "10:31:00" },
-      { nisn: "0069384719", nama: "Putri Anggraini", kelas: "XII AKL 1", benar: 37, salah: 3, nilai: "92.5", pelanggaran: 0, waktuSubmit: "10:12:05" }
+      { nisn: "0067829102", nama: "Ahmad Fauzi", kelas: "XI AKL 1", benar: 34, salah: 6, nilai: "85.0", pelanggaran: 0, waktuSubmit: "10:14:22" },
+      { nisn: "0061298411", nama: "Siti Nurhaliza", kelas: "XI AKL 2", benar: 39, salah: 1, nilai: "97.5", pelanggaran: 0, waktuSubmit: "10:02:11" },
+      { nisn: "0068491023", nama: "Budi Santoso", kelas: "XI BR 1", benar: 30, salah: 10, nilai: "75.0", pelanggaran: 2, waktuSubmit: "10:28:45" },
+      { nisn: "0063948172", nama: "Dewi Lestari", kelas: "XI BR 2", benar: 36, salah: 4, nilai: "90.0", pelanggaran: 0, waktuSubmit: "10:18:30" },
+      { nisn: "0065928104", nama: "Rizky Pratama", kelas: "XI BR 3", benar: 28, salah: 12, nilai: "70.0", pelanggaran: 1, waktuSubmit: "10:31:00" },
+      { nisn: "0069384719", nama: "Putri Anggraini", kelas: "XI MP 1", benar: 37, salah: 3, nilai: "92.5", pelanggaran: 0, waktuSubmit: "10:12:05" },
+      { nisn: "0064928173", nama: "Dimas Arya", kelas: "XI MP 2", benar: 32, salah: 8, nilai: "80.0", pelanggaran: 0, waktuSubmit: "10:20:15" },
+      { nisn: "0068172635", nama: "Nadia Rahma", kelas: "XI MP 3", benar: 35, salah: 5, nilai: "87.5", pelanggaran: 0, waktuSubmit: "10:16:40" }
     ];
 
     // Gabungkan dengan submission terbaru dari localStorage dan Firebase

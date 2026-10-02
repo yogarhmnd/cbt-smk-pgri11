@@ -246,7 +246,7 @@ const CBT_DB = {
     const blockData = {
       nama: nameClean,
       normalizedName: normName,
-      kelas: extra.kelas || localStorage.getItem('cbt_student_class') || 'XI Akuntansi 1',
+      kelas: extra.kelas || localStorage.getItem('cbt_student_class') || 'XI AKL 1',
       nisn: extra.nisn || localStorage.getItem('cbt_student_nisn') || '0000000000',
       reason: reason,
       blockedAt: new Date().toISOString(),
