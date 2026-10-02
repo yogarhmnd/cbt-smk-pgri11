@@ -92,7 +92,132 @@ const CBT_DB = {
       }
     }
 
+    // Hapus sesi aktif siswa jika ada
+    if (payload.nama) {
+      this.completeExamSession(payload.nama).catch(() => {});
+    }
+
     return { success: true, mode: 'local' };
+  },
+
+  /**
+   * Mendaftarkan sesi pengerjaan ujian siswa (Live Monitoring)
+   */
+  async registerExamSession(sessionData) {
+    if (!sessionData || !sessionData.nama) return;
+    const normName = this.normalizeName(sessionData.nama);
+    const docId = normName.replace(/[^a-z0-9]/g, '_');
+    const payload = {
+      nama: sessionData.nama.trim(),
+      normalizedName: normName,
+      kelas: sessionData.kelas || 'XI AKL 1',
+      nisn: sessionData.nisn || '0000000000',
+      bab: sessionData.bab || 'SEMUA BAB',
+      status: 'Sedang Mengerjakan',
+      pelanggaran: sessionData.pelanggaran || 0,
+      waktuMulai: sessionData.waktuMulai || new Date().toLocaleTimeString('id-ID'),
+      startedAt: new Date().toISOString(),
+      lastHeartbeat: new Date().toISOString()
+    };
+
+    try {
+      const list = JSON.parse(localStorage.getItem('cbt_active_sessions') || '[]');
+      const idx = list.findIndex(s => this.normalizeName(s.nama) === normName);
+      if (idx >= 0) list[idx] = { ...list[idx], ...payload };
+      else list.unshift(payload);
+      localStorage.setItem('cbt_active_sessions', JSON.stringify(list));
+    } catch (e) {}
+
+    if (isFirebaseReady && db) {
+      try {
+        await db.collection('cbt_active_sessions').doc(docId).set(payload, { merge: true });
+      } catch (e) {
+        console.warn("⚠️ [Firebase] Gagal sinkron sesi aktif:", e);
+      }
+    }
+  },
+
+  /**
+   * Memperbarui sesi pengerjaan siswa (cth: pelanggaran, heartbeat)
+   */
+  async updateExamSession(studentName, updates = {}) {
+    if (!studentName) return;
+    const normName = this.normalizeName(studentName);
+    const docId = normName.replace(/[^a-z0-9]/g, '_');
+
+    try {
+      const list = JSON.parse(localStorage.getItem('cbt_active_sessions') || '[]');
+      const idx = list.findIndex(s => this.normalizeName(s.nama) === normName);
+      if (idx >= 0) {
+        list[idx] = { ...list[idx], ...updates, lastHeartbeat: new Date().toISOString() };
+        localStorage.setItem('cbt_active_sessions', JSON.stringify(list));
+      }
+    } catch (e) {}
+
+    if (isFirebaseReady && db) {
+      try {
+        await db.collection('cbt_active_sessions').doc(docId).set({
+          ...updates,
+          lastHeartbeat: new Date().toISOString()
+        }, { merge: true });
+      } catch (e) {}
+    }
+  },
+
+  /**
+   * Menyelesaikan / membersihkan sesi aktif saat ujian selesai atau didiskualifikasi
+   */
+  async completeExamSession(studentName) {
+    if (!studentName) return;
+    const normName = this.normalizeName(studentName);
+    const docId = normName.replace(/[^a-z0-9]/g, '_');
+
+    try {
+      let list = JSON.parse(localStorage.getItem('cbt_active_sessions') || '[]');
+      list = list.filter(s => this.normalizeName(s.nama) !== normName);
+      localStorage.setItem('cbt_active_sessions', JSON.stringify(list));
+    } catch (e) {}
+
+    if (isFirebaseReady && db) {
+      try {
+        await db.collection('cbt_active_sessions').doc(docId).delete();
+      } catch (e) {}
+    }
+  },
+
+  /**
+   * Mengambil daftar sesi aktif
+   */
+  getActiveSessions() {
+    try {
+      return JSON.parse(localStorage.getItem('cbt_active_sessions') || '[]');
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * Mendengarkan sesi aktif secara Realtime (Live Monitoring)
+   */
+  listenActiveSessions(onUpdate) {
+    const loadLocal = () => onUpdate(this.getActiveSessions());
+    loadLocal();
+
+    if (isFirebaseReady && db) {
+      return db.collection('cbt_active_sessions').onSnapshot(snap => {
+        const list = [];
+        snap.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+        localStorage.setItem('cbt_active_sessions', JSON.stringify(list));
+        onUpdate(list);
+      }, err => {
+        console.warn("Active sessions listener fallback:", err);
+        loadLocal();
+      });
+    }
+
+    const storageHandler = () => loadLocal();
+    window.addEventListener('storage', storageHandler);
+    return () => window.removeEventListener('storage', storageHandler);
   },
 
   /**

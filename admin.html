@@ -409,21 +409,46 @@
     function getCombinedStudents() {
       const stored = JSON.parse(localStorage.getItem('cbt_all_submissions') || '[]');
       const cloudStored = JSON.parse(localStorage.getItem('cbt_exam_results') || '[]');
+      const activeSessions = window.CBT_DB ? window.CBT_DB.getActiveSessions() : JSON.parse(localStorage.getItem('cbt_active_sessions') || '[]');
       const seen = new Set();
       const unique = [];
 
+      // 1. Submisi hasil ujian nyata (Cloud & Local)
       [...stored, ...cloudStored].forEach(s => {
-        const key = `${s.nisn}_${s.waktuSubmit}`;
+        const normName = (s.nama || '').trim().toLowerCase();
+        const key = `${normName}_${(s.kelas || '').trim().toLowerCase()}_${s.waktuSubmit}`;
         if (!seen.has(key)) {
           seen.add(key);
           unique.push(s);
         }
       });
 
+      // 2. Sesi ujian aktif yang sedang berlangsung (Live Monitoring)
+      activeSessions.forEach(s => {
+        const normName = (s.nama || '').trim().toLowerCase();
+        const hasFinished = unique.some(u => (u.nama || '').trim().toLowerCase() === normName);
+        if (!hasFinished && !seen.has(normName)) {
+          seen.add(normName);
+          unique.unshift({
+            nisn: s.nisn || '0000000000',
+            nama: s.nama,
+            kelas: s.kelas || 'XI AKL 1',
+            benar: "-",
+            salah: "-",
+            nilai: "-",
+            pelanggaran: s.pelanggaran || 0,
+            status: "Sedang Mengerjakan",
+            waktuSubmit: `Mulai ${s.waktuMulai || '-'}`
+          });
+        }
+      });
+
+      // 3. Sampel data siswa resmi per kelas
       defaultStudents.forEach(s => {
-        const key = `${s.nisn}_${s.waktuSubmit}`;
-        if (!seen.has(key)) {
-          seen.add(key);
+        const normName = (s.nama || '').trim().toLowerCase();
+        const alreadyExists = unique.some(u => (u.nama || '').trim().toLowerCase() === normName);
+        if (!alreadyExists && !seen.has(normName)) {
+          seen.add(normName);
           unique.push(s);
         }
       });
@@ -446,30 +471,34 @@
       const isNameBlocked = (name) => blockedList.some(b => b.nama.toLowerCase() === (name || '').toLowerCase());
 
       data.forEach((s) => {
-        const isPassed = parseFloat(s.nilai) >= 75.0;
+        const isDoingExam = s.status === 'Sedang Mengerjakan';
+        const isPassed = !isDoingExam && parseFloat(s.nilai) >= 75.0;
         const isBlocked = s.status === 'BLOCKED' || parseInt(s.pelanggaran) >= 3 || isNameBlocked(s.nama);
         const hasViolation = parseInt(s.pelanggaran) > 0;
 
         const row = document.createElement("tr");
-        row.className = isBlocked ? "bg-rose-50/70 hover:bg-rose-100/70 transition border-l-4 border-rose-600" : "hover:bg-slate-50/80 transition";
+        row.className = isBlocked 
+          ? "bg-rose-50/70 hover:bg-rose-100/70 transition border-l-4 border-rose-600" 
+          : (isDoingExam ? "bg-sky-50/60 hover:bg-sky-100/60 transition border-l-4 border-blue-500" : "hover:bg-slate-50/80 transition");
         row.innerHTML = `
           <td class="py-3.5 px-6">
             <div class="flex items-center space-x-2">
               <div>
-                <p class="font-bold text-slate-900">${s.nama}</p>
+                <p class="font-extrabold text-slate-900">${s.nama}</p>
                 <p class="text-[11px] text-slate-400 font-mono">NISN: ${s.nisn}</p>
               </div>
-              ${isBlocked ? `<span class="px-2 py-0.5 bg-rose-600 text-white rounded-md text-[9px] font-black uppercase">Terblokir</span>` : ''}
+              ${isBlocked ? `<span class="px-2 py-0.5 bg-rose-600 text-white rounded-md text-[9px] font-black uppercase">Terblokir</span>` : (isDoingExam ? `<span class="px-2 py-0.5 bg-blue-600 text-white rounded-md text-[9px] font-black uppercase animate-pulse">Live</span>` : '')}
             </div>
           </td>
           <td class="py-3.5 px-4 font-semibold text-slate-700">${s.kelas}</td>
           <td class="py-3.5 px-4 text-center">
-            <span class="text-emerald-600 font-bold">${s.benar}</span> / <span class="text-rose-500 font-bold">${s.salah}</span>
+            ${isDoingExam ? `<span class="text-slate-400 font-bold">-</span>` : `<span class="text-emerald-600 font-bold">${s.benar}</span> / <span class="text-rose-500 font-bold">${s.salah}</span>`}
           </td>
           <td class="py-3.5 px-4 text-center">
-            <span class="px-2.5 py-1 rounded-lg font-bold text-xs ${isBlocked ? 'bg-rose-600 text-white shadow-xs' : (isPassed ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200')}">
-              ${s.nilai}
-            </span>
+            ${isDoingExam 
+              ? `<span class="px-2.5 py-1 rounded-xl font-extrabold text-xs bg-blue-100 text-blue-800 border border-blue-300 animate-pulse inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping"></span>Sedang Ujian</span>`
+              : `<span class="px-2.5 py-1 rounded-lg font-bold text-xs ${isBlocked ? 'bg-rose-600 text-white shadow-xs' : (isPassed ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200')}">${s.nilai}</span>`
+            }
           </td>
           <td class="py-3.5 px-4 text-center">
             ${isBlocked
@@ -487,9 +516,16 @@
                   <span>Reset Login</span>
                 </button>
               ` : ''}
-              <button onclick="viewStudentDetail('${s.nisn}')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-semibold text-[11px] transition cursor-pointer">
-                Detail
-              </button>
+              ${isDoingExam ? `
+                <span class="px-2.5 py-1 bg-sky-100 text-sky-800 rounded-lg font-bold text-[11px] flex items-center space-x-1">
+                  <i data-lucide="activity" class="w-3 h-3 text-sky-600 animate-pulse"></i>
+                  <span>Live</span>
+                </span>
+              ` : `
+                <button onclick="viewStudentDetail('${s.nisn}')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-semibold text-[11px] transition cursor-pointer">
+                  Detail
+                </button>
+              `}
             </div>
           </td>
         `;
@@ -1581,6 +1617,10 @@ Bobot: 2.0`;
         window.CBT_DB.listenSubmissions((cloudList) => {
           renderTable(getCombinedStudents());
           updateDbBadge();
+        });
+
+        window.CBT_DB.listenActiveSessions(() => {
+          renderTable(getCombinedStudents());
         });
 
         window.CBT_DB.listenBlockedStudents((blockedList) => {
