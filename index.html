@@ -7337,6 +7337,8 @@ Bobot: 2.0`;
           </td>
         `;
         tbody.appendChild(row);
+      });
+
       if (avgScoreEl && completedCount > 0) {
         avgScoreEl.innerText = (totalScoreSum / completedCount).toFixed(1);
       }
