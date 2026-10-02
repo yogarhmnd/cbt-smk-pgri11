@@ -35,132 +35,265 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
-  <!-- ================= TOPBAR UTAMA ADMIN (MODERN, CLEAN & ELEGAN) ================= -->
-  <nav class="bg-[#0B2545] text-white sticky top-0 z-30 shadow-lg border-b border-cyan-400/20 relative overflow-hidden">
+  <!-- ================= TOPBAR UTAMA ADMIN (COMPACT, CLEAN & DINAMIS) ================= -->
+  <nav class="bg-[#0B2545] text-white sticky top-0 z-30 shadow-md border-b border-cyan-400/20 relative overflow-hidden">
     <!-- Ambient Blur Background Accent -->
-    <div class="absolute -top-12 -left-12 w-48 h-48 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none"></div>
-    <div class="absolute -bottom-16 right-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-2xl pointer-events-none"></div>
+    <div class="absolute -top-10 -left-10 w-36 h-36 bg-cyan-500/15 rounded-full blur-xl pointer-events-none"></div>
+    <div class="absolute -bottom-12 right-1/4 w-48 h-48 bg-blue-600/20 rounded-full blur-2xl pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-10">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between relative z-10">
       
       <!-- Brand & School -->
-      <div class="flex items-center space-x-3.5">
-        <a href="admin.html" class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-cyan-500/20 border border-white/20 transition hover:scale-105">
-          <i data-lucide="shield-check" class="w-6 h-6"></i>
+      <div class="flex items-center space-x-2.5 sm:space-x-3">
+        <a href="admin.html" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-cyan-500/20 border border-white/20 transition hover:scale-105">
+          <i data-lucide="shield-check" class="w-5 h-5"></i>
         </a>
         <div>
-          <div class="flex items-center space-x-2">
-            <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight">Panel Pengawas & Guru Sejarah</h1>
-            <span class="px-2 py-0.5 rounded-full text-[9.5px] font-black bg-cyan-400/20 text-cyan-200 border border-cyan-400/30 uppercase tracking-wider">CBT 2026</span>
+          <div class="flex items-center space-x-1.5">
+            <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-white leading-tight">Panel Pengawas & Guru</h1>
+            <span class="px-1.5 py-0.2 rounded-full text-[9px] font-black bg-cyan-400/20 text-cyan-200 border border-cyan-400/30 uppercase tracking-wider">CBT 2026</span>
           </div>
-          <p class="text-[11px] text-cyan-200/80 font-medium mt-0.5">SMK PGRI 11 CILEDUG KOTA TANGERANG</p>
+          <p class="text-[10px] text-cyan-200/80 font-medium hidden sm:block">SMK PGRI 11 CILEDUG KOTA TANGERANG</p>
         </div>
       </div>
 
       <!-- Action Links & Profile Toolbar -->
-      <div class="flex items-center space-x-2 sm:space-x-3">
+      <div class="flex items-center space-x-1.5 sm:space-x-2.5">
         <!-- Cloud DB Status Badge -->
-        <div id="db-status-badge" class="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white/10 text-cyan-200 border border-white/15 backdrop-blur-md">
+        <div id="db-status-badge" class="hidden md:inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white/10 text-cyan-200 border border-white/15 backdrop-blur-md">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>🔥 Cloud Database Aktif</span>
+          <span>🔥 Cloud DB</span>
         </div>
 
-        <button onclick="openBatchAddModal()" class="hidden lg:inline-flex items-center space-x-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-extrabold shadow-sm transition cursor-pointer active:scale-95">
-          <i data-lucide="layers" class="w-4 h-4"></i>
+        <button onclick="openBatchAddModal()" class="hidden md:inline-flex items-center space-x-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-extrabold shadow-xs transition cursor-pointer active:scale-95">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
           <span>+ Batch Soal</span>
         </button>
 
-        <button onclick="openUploadQuestionsModal()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white rounded-xl text-xs font-extrabold shadow-md shadow-blue-600/25 transition cursor-pointer active:scale-95">
-          <i data-lucide="file-input" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Import Word / PDF</span>
-          <span class="sm:hidden">Import</span>
+        <button onclick="openUploadQuestionsModal()" class="hidden sm:inline-flex items-center space-x-1 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-extrabold shadow-sm transition cursor-pointer active:scale-95">
+          <i data-lucide="file-input" class="w-3.5 h-3.5"></i>
+          <span>Import Dokumen</span>
         </button>
 
-        <button onclick="forceRegenerateToken()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-extrabold shadow-md shadow-amber-500/25 transition active:scale-95">
-          <i data-lucide="key-round" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Rilis Token</span>
+        <button onclick="forceRegenerateToken()" class="inline-flex items-center space-x-1 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-extrabold shadow-xs transition active:scale-95 cursor-pointer">
+          <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+          <span>Rilis Token</span>
         </button>
 
-        <a href="index.html" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-white/10 hover:bg-white/20 text-cyan-100 rounded-xl text-xs font-bold transition border border-white/15">
-          <i data-lucide="monitor" class="w-4 h-4"></i>
+        <a href="index.html" class="hidden sm:inline-flex items-center space-x-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-cyan-100 rounded-xl text-xs font-bold transition border border-white/15">
+          <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
           <span class="hidden md:inline">Tampilan Siswa</span>
+          <span class="md:hidden">Siswa</span>
         </a>
 
-        <!-- Profile Avatar & Logout -->
-        <div class="flex items-center space-x-2 border-l border-white/15 pl-3">
-          <div class="text-right hidden xl:block leading-tight">
-            <p class="text-xs font-extrabold text-white">Yoga Rahmanda, S.Pd</p>
-            <p class="text-[10px] text-cyan-200">Guru Pengampu</p>
-          </div>
-          <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center font-extrabold text-xs shadow-sm border border-white/20">
+        <!-- Profile Avatar & Logout (Desktop) -->
+        <div class="hidden sm:flex items-center space-x-1.5 border-l border-white/15 pl-2">
+          <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center font-extrabold text-[10px] shadow-xs">
             YR
           </div>
-          <a href="login.html" onclick="localStorage.removeItem('cbt_auth_role'); localStorage.removeItem('cbt_teacher_auth');" title="Keluar Akun Admin" class="p-2 text-slate-300 hover:text-rose-400 hover:bg-white/10 rounded-xl transition cursor-pointer">
-            <i data-lucide="log-out" class="w-4 h-4"></i>
+          <a href="login.html" onclick="localStorage.removeItem('cbt_auth_role'); localStorage.removeItem('cbt_teacher_auth');" title="Keluar Akun Admin" class="p-1.5 text-slate-300 hover:text-rose-400 hover:bg-white/10 rounded-xl transition cursor-pointer">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
           </a>
         </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button type="button" onclick="toggleAdminMobileDrawer(true)" class="md:hidden p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-cyan-200 transition flex items-center justify-center cursor-pointer active:scale-95" title="Buka Menu Admin">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
       </div>
 
     </div>
   </nav>
 
-  <!-- ================= MAIN CONTAINER ================= -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+  <!-- ================= MOBILE ADMIN SLIDE DRAWER ================= -->
+  <div id="mobile-admin-drawer-backdrop" onclick="toggleAdminMobileDrawer(false)" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+  
+  <div id="mobile-admin-drawer" class="fixed top-0 right-0 bottom-0 z-50 w-72 max-w-[85vw] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between overflow-y-auto">
     
-    <!-- STATS OVERVIEW CARDS (DINAMIS & ELEGAN) -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div>
+      <!-- Drawer Header -->
+      <div class="p-4 bg-[#0B2545] text-white flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+            <i data-lucide="shield-check" class="w-4 h-4 text-white"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-xs leading-tight">Panel Pengawas</h3>
+            <p class="text-[9.5px] text-cyan-200">SMK PGRI 11 CILEDUG</p>
+          </div>
+        </div>
+        <button onclick="toggleAdminMobileDrawer(false)" class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Teacher Identity -->
+      <div class="p-3.5 bg-slate-50 border-b border-slate-200">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center font-extrabold text-xs shadow-xs">
+            YR
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-extrabold text-slate-900 truncate">Yoga Rahmanda, S.Pd</p>
+            <p class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>Guru Pengampu CBT</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Items in Drawer -->
+      <div class="p-3 space-y-1 text-xs">
+        
+        <button onclick="openBatchAddModal(); toggleAdminMobileDrawer(false)" class="w-full p-2.5 rounded-xl font-bold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/80 transition flex items-center space-x-2.5 text-left cursor-pointer">
+          <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-extrabold text-slate-900">+ Penambahan Soal Batch</div>
+            <div class="text-[10px] text-slate-400 font-normal">Buat butir soal massal cepat</div>
+          </div>
+        </button>
+
+        <button onclick="openUploadQuestionsModal(); toggleAdminMobileDrawer(false)" class="w-full p-2.5 rounded-xl font-bold text-slate-700 hover:text-blue-700 hover:bg-blue-50/80 transition flex items-center space-x-2.5 text-left cursor-pointer">
+          <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+            <i data-lucide="file-input" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-extrabold text-slate-900">Import File Word / PDF</div>
+            <div class="text-[10px] text-slate-400 font-normal">Ekstraksi otomatis dokumen soal</div>
+          </div>
+        </button>
+
+        <button onclick="forceRegenerateToken(); toggleAdminMobileDrawer(false)" class="w-full p-2.5 rounded-xl font-bold text-slate-700 hover:text-amber-700 hover:bg-amber-50/80 transition flex items-center space-x-2.5 text-left cursor-pointer">
+          <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+            <i data-lucide="key-round" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-extrabold text-slate-900">Rilis Token Ujian Baru</div>
+            <div class="text-[10px] text-slate-400 font-normal">Perbarui kode token 5-menit</div>
+          </div>
+        </button>
+
+        <button onclick="exportToCSV(); toggleAdminMobileDrawer(false)" class="w-full p-2.5 rounded-xl font-bold text-slate-700 hover:text-purple-700 hover:bg-purple-50/80 transition flex items-center space-x-2.5 text-left cursor-pointer">
+          <div class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
+            <i data-lucide="download" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-extrabold text-slate-900">Export Rekap CSV</div>
+            <div class="text-[10px] text-slate-400 font-normal">Unduh nilai seluruh kelas</div>
+          </div>
+        </button>
+
+        <a href="index.html" class="w-full p-2.5 rounded-xl font-bold text-slate-700 hover:text-cyan-700 hover:bg-cyan-50/80 transition flex items-center space-x-2.5 text-left cursor-pointer block">
+          <div class="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-800 flex items-center justify-center shrink-0">
+            <i data-lucide="monitor" class="w-4 h-4"></i>
+          </div>
+          <div class="flex-1">
+            <div class="font-extrabold text-slate-900">Buka Halaman Siswa</div>
+            <div class="text-[10px] text-slate-400 font-normal">Lihat tampilan simulasi ujian</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-3 border-t border-slate-200 bg-slate-50 space-y-2">
+      <a href="login.html" onclick="localStorage.removeItem('cbt_auth_role'); localStorage.removeItem('cbt_teacher_auth');" class="w-full py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-extrabold flex items-center justify-center space-x-1.5 transition cursor-pointer">
+        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+        <span>Keluar dari Akun Admin</span>
+      </a>
+      <p class="text-[9.5px] text-slate-400 text-center">Panel CBT SMK PGRI 11 CILEDUG</p>
+    </div>
+  </div>
+
+  <!-- ================= MOBILE FLOATING QUICK ACTION BAR (ADMIN) ================= -->
+  <div id="mobile-admin-bottom-nav" class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0B2545]/95 backdrop-blur-md border-t border-cyan-400/20 py-1.5 px-3 flex items-center justify-around shadow-2xl text-white">
+    
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex flex-col items-center justify-center text-cyan-100 hover:text-white transition cursor-pointer py-1 px-2 group">
+      <i data-lucide="bar-chart-3" class="w-4 h-4 mb-0.5 group-hover:scale-110 transition-transform"></i>
+      <span class="text-[9.5px] font-bold">Rekap</span>
+    </button>
+
+    <button onclick="openBatchAddModal()" class="flex flex-col items-center justify-center text-cyan-100 hover:text-white transition cursor-pointer py-1 px-2 group">
+      <i data-lucide="layers" class="w-4 h-4 mb-0.5 group-hover:scale-110 transition-transform"></i>
+      <span class="text-[9.5px] font-bold">+ Soal</span>
+    </button>
+
+    <!-- Center Floating Action: Quick Release Token -->
+    <button onclick="forceRegenerateToken()" class="-mt-4 w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-500 to-rose-600 text-white flex flex-col items-center justify-center shadow-lg shadow-orange-500/30 active:scale-95 transition-transform cursor-pointer border-2 border-white" title="Rilis Token Cepat">
+      <i data-lucide="key-round" class="w-4 h-4 mb-0.5"></i>
+      <span class="text-[8px] font-black uppercase">Token</span>
+    </button>
+
+    <button onclick="openUploadQuestionsModal()" class="flex flex-col items-center justify-center text-cyan-100 hover:text-white transition cursor-pointer py-1 px-2 group">
+      <i data-lucide="file-input" class="w-4 h-4 mb-0.5 group-hover:scale-110 transition-transform"></i>
+      <span class="text-[9.5px] font-bold">Import</span>
+    </button>
+
+    <button onclick="toggleAdminMobileDrawer(true)" class="flex flex-col items-center justify-center text-cyan-100 hover:text-white transition cursor-pointer py-1 px-2 group">
+      <i data-lucide="menu" class="w-4 h-4 mb-0.5 group-hover:scale-110 transition-transform"></i>
+      <span class="text-[9.5px] font-bold">Menu</span>
+    </button>
+
+  </div>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-7 flex-1 w-full space-y-6 pb-16 md:pb-8">
+    
+    <!-- STATS OVERVIEW CARDS (COMPACT 2x2 ON MOBILE, 4 COLS ON DESKTOP) -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       
       <!-- Card 1: Total Siswa -->
-      <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition flex items-center justify-between group">
+      <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-sm transition flex items-center justify-between group">
         <div>
-          <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Total Partisipasi Siswa</p>
-          <h3 class="text-3xl font-black text-slate-900 mt-1" id="stat-total-students">0 Siswa</h3>
-          <p class="text-[11px] text-emerald-600 font-bold mt-1 flex items-center gap-1">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span id="stat-completed-subtext">Sinkronisasi Cloud Real-Time</span>
-          </p>
+          <p class="text-[10px] sm:text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Partisipasi Siswa</p>
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5" id="stat-total-students">0 Siswa</h3>
+          <p class="text-[9.5px] sm:text-[10.5px] text-emerald-600 font-bold mt-0.5 truncate" id="stat-completed-subtext">Live Sync</p>
         </div>
-        <div class="w-13 h-13 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-          <i data-lucide="users" class="w-6 h-6"></i>
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
+          <i data-lucide="users" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </div>
       </div>
 
       <!-- Card 2: Rata-Rata Nilai -->
-      <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition flex items-center justify-between group">
+      <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-sm transition flex items-center justify-between group">
         <div>
-          <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Rata-Rata Nilai</p>
-          <h3 class="text-3xl font-black text-blue-700 mt-1" id="stat-avg-score">0.0</h3>
-          <p class="text-[11px] text-slate-500 font-semibold mt-1">KKM Sekolah: <strong class="text-slate-700">75.0 Poin</strong></p>
+          <p class="text-[10px] sm:text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Rata-Rata Nilai</p>
+          <h3 class="text-xl sm:text-2xl font-black text-blue-700 mt-0.5" id="stat-avg-score">0.0</h3>
+          <p class="text-[9.5px] sm:text-[10.5px] text-slate-500 font-semibold mt-0.5">KKM: <strong>75.0</strong></p>
         </div>
-        <div class="w-13 h-13 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-          <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </div>
       </div>
 
       <!-- Card 3: Sesi Ujian Aktif Live -->
-      <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition flex items-center justify-between group">
+      <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-sm transition flex items-center justify-between group">
         <div>
-          <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Siswa Sedang Ujian (Live)</p>
-          <h3 class="text-3xl font-black text-sky-600 mt-1" id="stat-live-testing-count">0 Siswa</h3>
-          <p class="text-[11px] text-sky-600 font-bold mt-1 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
-            <span>Live Monitoring Aktif</span>
+          <p class="text-[10px] sm:text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Sedang Ujian (Live)</p>
+          <h3 class="text-xl sm:text-2xl font-black text-sky-600 mt-0.5" id="stat-live-testing-count">0 Siswa</h3>
+          <p class="text-[9.5px] sm:text-[10.5px] text-sky-600 font-bold mt-0.5 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-ping"></span>
+            <span>Live Monitor</span>
           </p>
         </div>
-        <div class="w-13 h-13 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-          <i data-lucide="activity" class="w-6 h-6"></i>
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+          <i data-lucide="activity" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </div>
       </div>
 
       <!-- Card 4: Siswa Terblokir & Log Kecurangan -->
-      <div class="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition flex items-center justify-between group">
+      <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-sm transition flex items-center justify-between group">
         <div>
-          <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Status Integritas / Terblokir</p>
-          <h3 class="text-3xl font-black text-rose-600 mt-1" id="stat-cheat-count">0</h3>
-          <p class="text-[11px] text-rose-600 font-bold mt-1">3x Keluar Layar Ujian</p>
+          <p class="text-[10px] sm:text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Integritas / Terblokir</p>
+          <h3 class="text-xl sm:text-2xl font-black text-rose-600 mt-0.5" id="stat-cheat-count">0</h3>
+          <p class="text-[9.5px] sm:text-[10.5px] text-rose-600 font-bold mt-0.5">3x Toleransi</p>
         </div>
-        <div class="w-13 h-13 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-          <i data-lucide="shield-alert" class="w-6 h-6"></i>
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+          <i data-lucide="shield-alert" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </div>
       </div>
 
@@ -1844,6 +1977,27 @@ Bobot: 2.0`;
         .join(', ');
 
       alert(`✅ Berhasil Mengonfigurasi Bank Soal CBT!\n\n${newItems.length} butir soal telah berhasil disimpan ke sistem CBT.\nRincian per BAB: ${babSummary || 'Lengkap'}\nTotal Bank Soal Sekarang: ${finalQuestions.length} butir soal.\n\nSiswa kini dapat langsung mengerjakan paket soal terbaru.`);
+    }
+
+    function toggleAdminMobileDrawer(isOpen) {
+      const backdrop = document.getElementById("mobile-admin-drawer-backdrop");
+      const drawer = document.getElementById("mobile-admin-drawer");
+      if (!backdrop || !drawer) return;
+
+      if (isOpen) {
+        backdrop.classList.remove("pointer-events-none", "opacity-0");
+        backdrop.classList.add("pointer-events-auto", "opacity-100");
+        drawer.classList.remove("translate-x-full");
+        drawer.classList.add("translate-x-0");
+        document.body.classList.add("overflow-hidden");
+      } else {
+        drawer.classList.remove("translate-x-0");
+        drawer.classList.add("translate-x-full");
+        backdrop.classList.remove("opacity-100", "pointer-events-auto");
+        backdrop.classList.add("opacity-0", "pointer-events-none");
+        document.body.classList.remove("overflow-hidden");
+      }
+      lucide.createIcons();
     }
 
     window.onload = () => {
